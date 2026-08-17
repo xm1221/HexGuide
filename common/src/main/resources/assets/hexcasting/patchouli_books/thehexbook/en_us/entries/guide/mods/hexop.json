@@ -1,0 +1,28 @@
+{
+  "name": "hexguide.entry.guide.mods.hexop",
+  "category": "hexcasting:guide/mods",
+  "icon": "minecraft:stone_sword",
+  "sortnum": 4,
+  "flag": "mod:hexoverpowered",
+  "advancement": "hexcasting:root",
+  "read_by_default": false,
+  "pages": [
+    "hexguide.page.guide.mods.hexop.0",
+    {
+      "type": "hexguide:component_text",
+      "text": "hexguide.page.guide.mods.hexop.1"
+    },
+    {
+      "type": "hexguide:component_text",
+      "text": "hexguide.page.guide.mods.hexop.2"
+    },
+    {
+      "type": "hexguide:component_text",
+      "text": "hexguide.page.guide.mods.hexop.3"
+    },
+    {
+      "type": "hexguide:component_text",
+      "text": "hexguide.page.guide.mods.hexop.4"
+    }
+  ]
+}

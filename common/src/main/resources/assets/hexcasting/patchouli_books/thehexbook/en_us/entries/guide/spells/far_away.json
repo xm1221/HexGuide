@@ -1,0 +1,27 @@
+{
+  "name": "hexguide.entry.guide.spells.far_away",
+  "category": "hexcasting:guide/spells",
+  "icon": "minecraft:white_candle",
+  "sortnum": 5,
+  "advancement": "hexcasting:enlightenment",
+  "entry_color": "54398a",
+  "read_by_default": false,
+  "pages": [
+    {
+      "type": "hexguide:component_text",
+      "text": "hexguide.page.guide.spells.far_away.0"
+    },
+    {
+      "type": "hexguide:component_text",
+      "text": "hexguide.page.guide.spells.far_away.1"
+    },
+    {
+      "type": "hexguide:component_text",
+      "text": "hexguide.page.guide.spells.far_away.2"
+    },
+    {
+      "type": "hexguide:component_text",
+      "text": "hexguide.page.guide.spells.far_away.3"
+    }
+  ]
+}

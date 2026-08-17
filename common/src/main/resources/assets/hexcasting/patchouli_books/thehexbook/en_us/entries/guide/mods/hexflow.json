@@ -1,0 +1,28 @@
+{
+  "name": "hexguide.entry.guide.mods.hexflow",
+  "category": "hexcasting:guide/mods",
+  "icon": "minecraft:iron_sword",
+  "sortnum": 3,
+  "flag": "mod:hexflow",
+  "advancement": "hexcasting:root",
+  "read_by_default": false,
+  "pages": [
+    "hexguide.page.guide.mods.hexflow.0",
+    {
+      "type": "hexguide:component_text",
+      "text": "hexguide.page.guide.mods.hexflow.1"
+    },
+    {
+      "type": "hexguide:component_text",
+      "text": "hexguide.page.guide.mods.hexflow.2"
+    },
+    {
+      "type": "hexguide:component_text",
+      "text": "hexguide.page.guide.mods.hexflow.3"
+    },
+    {
+      "type": "hexguide:component_text",
+      "text": "hexguide.page.guide.mods.hexflow.4"
+    }
+  ]
+}

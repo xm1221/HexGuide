@@ -89,12 +89,16 @@
           lights: "射线追踪技巧与照明术",
           boom: "更好的爆炸",
           arrow: "高速箭的妙用",
-          media: "媒质！媒质！"
+          media: "媒质！媒质！",
+          allay: "关于悦灵的淬炼",
+          far_away: "远距离施法"
         },
         mods: {
           hexal: "关于咒灵",
           moreiotas: "更多实用Iota",
-          hexcassettes: "磁带与守护进程"
+          hexcassettes: "磁带与守护进程",
+          hexop: "更友善的自然",
+          hexflow: "托特的革新"
         }
       },
       casting: {
@@ -144,6 +148,18 @@
           media: {
             "0": "施法需要媒质，需要很多很多很多的媒质，我的技术日益精进，而媒质却总是不足……$(br2)媒质，媒质！依靠$(hex)紫水晶洞$()中那些微不足道的产出根本不足以维持施法……我得找到别的办法。$(thing)媒质来自于思维，思维产生于意识，任何的思考都会产生痕量的媒质$()，让我想想，让我想想……也许我可以通过一次施法时少带些紫水晶来节省媒质，也许我可以寻找新的晶洞，但是还不够。",
             "1": "我现在的知识是不足够的，我还需要更多的知识。$(l:hexcasting:patterns/great_spells)卓越法术$()，必须找到卓越法术们，不管是把结晶态的媒质制作成$(l:hexcasting:items/phials)媒质瓶$()，还是$(l:hexcasting:patterns/great_spells/brainsweep)任何其他办法$()，为了媒质，我将不顾一切，也许在沉船或地牢这样的先民遗迹中，会有记载卓越法术的$(thing)远古卷轴$()的踪迹？$(br2)$(o)我不能忍受媒质的缺乏，我不能停下施法……"
+          },
+          allay: {
+            "0": "$(l:hexcasting:greatwork/quenching_allay)淬炼悦灵$()……多么伟大的发明！$(br2)这些迷人的生命只需要一些简单的$(t:唱片机)音乐$()和少量的紫水晶碎片就能$(t:手持紫水晶碎片的悦灵如果听到唱片机的音乐，便会分裂成两个)$(hex)繁殖$()，而随着它们分裂再分裂，媒质也不断的倍增再倍增，当这些纯粹的意识被剥离进紫水晶块中，我仿佛能在淬灵晶的振动中再次听见卓伟的启迪……",
+            "1": "养殖悦灵",
+            "2": "建立一个养殖悦灵的农场，这有助于大量生产淬灵晶。"
+          },
+          far_away: {
+            "0": "自然所赐给$(hex)咒法师$()的$(thing)施法范围$()是有限的，因此对在较远距离上的对象施展法术似乎是不可能的。然而在经过了$(hex)启迪$()之后，我已然知晓突破自然所定下的施法范围限制的方法。$(br2)$(l:hexcasting:patterns/great_spells/greater_sentinel)卓越哨卫$()会额外提供给其主人它周围16格半径内的区域的施法范围。每次召唤哨卫会自动驱散上一个哨卫，咒法师被允许在哨卫的施法范围内召唤哨卫，由此，实现远距离施法的方法便明了了。",
+            "1": "只需要反复的在$(hex)卓越哨卫$()的范围内再次召唤$(hex)卓越哨卫$()，一步一步的将哨卫挪向目标点位，就可以实现将目标点位纳入我的控制之下--我称之为“步进哨卫”，实现起来倒也不算太难，我将法术和思路记录如下：$(br)iota:far_away.json**n$(br2)$(br2)这个法术要接受一个外界输入的坐标作为起始，它的第一个图案是$(l:hexcasting/patterns/readwrite#hexcasting:write/local)福金之策略$()，将外界输入的坐标作为目标储存到$(thing)渡鸦之思$()中，以便后日查验和调用。",
+            "2": "后面的图案可以简单分成两部分，分别是$(br)iota:far_away_0.json**n$(br2)和$(br)iota:far_away_1.json**n$(br2)$(br2)第一个部分是第一次召唤哨卫，以及将施法者坐标和目标坐标做差后得到的向量自除其长度得到现在坐标到目标坐标方向上的单位向量，乘以16之后得到哨卫每一次移动的$(l)偏移量$()。",
+            "3": "而后面一个部分则是一个循环结构，类似于iota:11fa54.json，通过$(l:hexcasting:patterns/stackmanip#hexcasting:over)勘探者之策略$()不断复制出步长，用$(l:hexcasting:patterns/spells/sentinels#hexcasting.page.sentinels.sentinel/get_pos)定位哨卫$()获取当前哨卫坐标，二者相加，得到$(l)下一个召唤哨卫的位置$()，进行$(hex)召唤卓越哨卫$()，每次召唤之后将当前坐标与之前所储存的目标坐标相减，再使用$(l:hexcasting:patterns/math#hexcasting:abs)长度之纯化$()检查当前位置和目标位置之间的距离，然后利用$(hex)占卜师之提整$()来做$(l:hexcasting:hexguide/logics)逻辑判断$()：如果大于等于16则执行$(hex)双子、赫尔墨斯$()——继续循环；如果小于16，则直接在目标点位召唤哨卫，不再进行其他操作，循环自然停止。"
+
           }
         },
         mods: {
@@ -164,6 +180,20 @@
             "3": "最终的列表在一次$(hex)赫尔墨斯之策略$()()下仍然得其本身，可以发现，$(t:群体之拆解、1、勘探者之策路、外科医师之提整)iota:q_part.json$()$(br)在最终的列表中出现两次，实际上替代了前文所提的死循环中双子之分解和$(action)赫尔墨斯之策略$()的功能。最终的得到的$(hex)$(t:iota:real_quine.json)这一列表$()本质是两个$(hex)$(t:iota:q_part.json)一样的单元$()互相嵌套，每次执行时都用$(l:hexcasting:patterns/lists#hexcasting:splat)群体之拆解$()解套并用$(l:hexcasting:patterns/lists#hexcasting:replace)外科医师之提整$()替换掉$(hex)$(t:HexPattern[EAST,w])占位符$()。$(br2)顺着这个列表走一遍就很容易理解这个过程了，请看演示",
             "4": "那么如何实现持续施法也就显而易见了，以$(t:iota:quine.json)$(hex)这个列表$()为例，如果我们在内层的外科医师之提整后添加数字和入队列以及法术，并且保证前后不额外消耗和增加Iota，那么它就会在一次执行后把包含入队列的咒术入队列，而那个咒术本身又会再次将自己入队列，如此循环，永无休止。最终得到的列表就应当形如：$(br)$(t:要执行的法术放在入队列步骤前后均可)iota:0d164f.json**n$(br2)$(br2)$(o)在被执行后返回本身的咒术，叫做奎因，是通往永恒的钥匙"
 
+          },
+          hexop: {
+            "0": "自然对待咒法师的规矩，近来似乎悄悄放宽了些。$(thing)施法物品$()中封存的咒术不再讳莫如深，原先会令手中之物坠落的$(l:hexcasting:mishaps)事故$()也不再那样粗暴，$(thing)真名$()纵使离开当前维度，仍牢牢指向其主，一些原被禁止的$(thing)传送$()对象也重获许可。$(br2)这些宽限究竟从何而来，我尚未参透；但后文要记下的种种新把戏，与它们出于同一手笔——$(o)自然，似乎开始变得友善了。",
+            "1": "$(l:hexcasting:guide/stack)法杖$()施法环境的特别之处，在于每次打开网格都会继承上一次的栈；而这栈如今终于可以被显式地操作了：$(action)入脑之策略$()将当前栈顶的 Iota 压入法杖的栈，$(action)出脑之策略$()再从法杖的栈取回栈顶，$(action)脑深之精思$()报出法杖栈的深浅，$(action)象形之精思$()把画布上已绘的全部图案收作一份列表。$(br2)于是，栈不再只是打开网格时才能照看的家当：施法途中尽可把眼下占着栈面的 Iota 置入法杖栈，待下次需要时再取——法杖的栈因连续而值得信赖，恰如一页写满了、却永不丢弃的草稿纸。",
+            "2": "更奇的是$(action)拖延之策略$()：把一段图案列表$(thing)延后$()若干刻，再在另一个被分割出来的施法环境中执行——仿佛给咒术点上一根无声的引线。代价也随之写明了：既然施法环境被一分为二，那延后执行的那一次施法$(o)便不再向你传递任何消息，揭示与事故都杳无音信$()；同一环境同时只能悬挂一个延时，新的延时会将旧的$(thing)取代$()。$(action)拖延之精思$()则报出上一次被延后执行的图案列表，聊作$(hex)记忆的凭证$()。$(br2)与$(l:hexcasting:guide/meta)元运行$()的法术组合起来，便可以让一段法术自己安排好下一段要做什么——埋下引线，任它自行燃尽。",
+            "3": "我还寻得一条新的$(thing)媒质通路$()——$(hex)个人媒质条$()。它与我的意识相连，随我而动，$(action)法力之精思$()报出其中所存的媒质（以$(thing)0.0001 粉$()为单位），$(action)奥术之精思$()报出其上限。它的深浅与回复皆系于我自身，且必待经历$(l:hexcasting:greatwork/enlightenment)启迪$()之后方肯显现——或许这正是它被称为“个人”的缘由。$(br2)若要填满它，$(action)沼气驱动$()这枚$(l:hexcasting:patterns/great_spells)卓越法术$()最为爽利：它会将当前施法环境的媒质——施法物品、$(l:hexcasting:greatwork/circles)法术环$()、咒灵，抑或我自己的个人媒质条——它便将之设置为相当于$(thing)114514 份紫水晶粉$()的储量。$(o)我第一次见到这个数目时，几乎以为自己在做梦——就是有点臭",
+            "4": "对了，还有一桩小事：法术环的媒质波如今愿意穿过$(thing)紫水晶母岩$()，每次经过都消耗少量媒质催动其上的晶簇生长，据说如果媒质不足会发生恐怖的事情，不过我已在着手搭建一座由法术环驱动的紫水晶田……如今的自然待我不薄，我果然是天之骄子。"
+          },
+          hexflow: {
+            "0": "$(l:hexcasting:patterns/meta#hexcasting:for_each)托特之策略$()是重复的王道：它把图案列表施加于目标列表的每一个元素，却总要先$(thing)复制一份初始栈$()作为子栈的底。这在小事上无伤大雅，可一旦嵌套、一旦面对成千上万的Iota，对栈的占用便触目惊心。于是有人带来了对托特乃至整个$(l:hexcasting:guide/meta)执行机制$()的一整套革新——HexFlow，托特们的狂欢。",
+            "1": "首先是$(action)$(l:hexcasting:hexflow_thoth#hexflow:pure_map)奈赫梅塔维之策略$()$()：与托特之策略别无二致，唯独$(thing)不再拷贝初始栈$()——每一个子运行都从空栈开始。$(br2)然后是$(action)$(l:hexcasting:hexflow_thoth#hexflow:pure_reduce)康威之策略$()$()：对长度为 n 的列表只执行$(thing)n - 1$()次，第一次子运行的初始栈是前两个元素，此后每次子运行都使用上一次执行留下的栈——归纳、折叠、重复的精髓正在于此。$(br2)一切“纯”字当头的图案都遵循这一约定：$(thing)功能不变，只是不复制原栈$()。",
+            "2": "托特需要目标列表，而目标坐标往往要自己生成。这套图案把$(thing)几何遍历$()直接做成了图案：$(br)$(li)$(action)$(l:hexcasting:hexflow#hexflow:for_range/cube)鲁比克之策略$()$()：以两点为体对角线遍历整个长方体，可选数字（0–3）决定顺序——不排序、就近、就远或随机；$(li)$(action)$(l:hexcasting:hexflow#hexflow:for_range/line)直尺之策略$()$()：遍历起点与终点间直线上的每一点，可按位配置是否包含两端、是否吸附至方块中心，或手动指定分割段数；$(li)$(action)$(l:hexcasting:hexflow#hexflow:for_range/floodfill)连锁采矿之策略$()$()（$(l:hexcasting:patterns/great_spells)卓越法术$()）：沿同种方块$(thing)连通填充$()，可指定 6 面 / 12 棱 / 8 顶点三种连锁方式并限制最大连锁数。$(br2)各有“纯”字版本，初栈不再被复制进每次子运行。",
+            "3": "另有几枚小巧而刁钻的图案：$(br)$(li)$(action)$(l:hexcasting:hexflow#hexflow:build_nested)套娃$()$()：把列表复制后写回指定下标处；$(li)$(action)$(l:hexcasting:hexflow#hexflow:nested_modify)器官移植之提整$()$()：按一串下标逐级深入嵌套列表，在尽头替换对应元素并返回修改后的整体；$(li)$(action)$(l:hexcasting:hexflow#hexflow:mass_rotate)大型轮换之策略$()$()：给定重排范围与自底向上的序号列表，对剩余栈执行相应重排——3 与 [1,2,0] 便是$(l:hexcasting:patterns/stackmanip#hexcasting:rotate)轮换之策略$()，2 与 [0,1,0,1] 便是$(l:hexcasting:patterns/stackmanip#hexcasting:2dup)狄俄斯库里之策略$()；$(li)$(action)$(l:hexcasting:hexflow#hexflow:copy_mask)电鱼之策略$()$()：按一系列下标把对应位置的 Iota 批量复制到栈顶，匹配规则同$(l:hexcasting:patterns/stackmanip#hexcasting:mask)簿记员之策略$()",
+            "4": "最后是两枚关于“执行”本身的图案。$(action)$(l:hexcasting:hexflow#hexflow:weak_escape)弱考察$()$()与$(l:hexcasting:patterns/patterns_as_iotas#hexcasting:escape)考察$()相同，却拥有$(thing)最低的执行优先级$()：在多层$(l:hexcasting:patterns/patterns_as_iotas)内省-反思$()之中，普通转义会随层数成$(thing)2 的 n 次方$()指数增殖，而弱考察纹丝不动，只转义紧邻它的那一个图案。$(action)$(l:hexcasting:hexflow#hexflow:call_stack)汉诺之策略$()$()则在$(thing)独立的栈$()中执行给定的图案或列表，结束后把原栈恢复在底；若附带一个不大于栈大小的数字 X，则前 X 个 Iota 会被带走，成为新栈的底。$(br2)$(o)托特的革新，让自然的法则再次为咒法师的意志让路。"
           }
         },
         iotas: {

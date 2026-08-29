@@ -156,9 +156,9 @@
           },
           far_away: {
             "0": "自然所赐给$(hex)咒法师$()的$(thing)施法范围$()是有限的，因此对在较远距离上的对象施展法术似乎是不可能的。然而在经过了$(hex)启迪$()之后，我已然知晓突破自然所定下的施法范围限制的方法。$(br2)$(l:hexcasting:patterns/great_spells/greater_sentinel)卓越哨卫$()会额外提供给其主人它周围16格半径内的区域的施法范围。每次召唤哨卫会自动驱散上一个哨卫，咒法师被允许在哨卫的施法范围内召唤哨卫，由此，实现远距离施法的方法便明了了。",
-            "1": "只需要反复的在$(hex)卓越哨卫$()的范围内再次召唤$(hex)卓越哨卫$()，一步一步的将哨卫挪向目标点位，就可以实现将目标点位纳入我的控制之下--我称之为“步进哨卫”，实现起来倒也不算太难，我将法术和思路记录如下：$(br)iota:far_away.json**n$(br2)$(br2)这个法术要接受一个外界输入的坐标作为起始，它的第一个图案是$(l:hexcasting/patterns/readwrite#hexcasting:write/local)福金之策略$()，将外界输入的坐标作为目标储存到$(thing)渡鸦之思$()中，以便后日查验和调用。",
+            "1": "只需要反复的在$(hex)卓越哨卫$()的范围内再次召唤$(hex)卓越哨卫$()，一步一步的将哨卫挪向目标点位，就可以实现将目标点位纳入我的控制之下--我称之为“步进哨卫”，实现起来倒也不算太难，我将法术和思路记录如下：$(br)iota:far_away.json**n$(br2)$(br2)这个法术要接受一个外界输入的坐标作为起始，它的第一个图案是$(l:hexcasting:patterns/readwrite#hexcasting:write/local)福金之策略$()，将外界输入的坐标作为目标储存到$(thing)渡鸦之思$()中，以便后日查验和调用。",
             "2": "后面的图案可以简单分成两部分，分别是$(br)iota:far_away_0.json**n$(br2)和$(br)iota:far_away_1.json**n$(br2)$(br2)第一个部分是第一次召唤哨卫，以及将施法者坐标和目标坐标做差后得到的向量自除其长度得到现在坐标到目标坐标方向上的单位向量，乘以16之后得到哨卫每一次移动的$(l)偏移量$()。",
-            "3": "而后面一个部分则是一个循环结构，类似于iota:11fa54.json，通过$(l:hexcasting:patterns/stackmanip#hexcasting:over)勘探者之策略$()不断复制出步长，用$(l:hexcasting:patterns/spells/sentinels#hexcasting.page.sentinels.sentinel/get_pos)定位哨卫$()获取当前哨卫坐标，二者相加，得到$(l)下一个召唤哨卫的位置$()，进行$(hex)召唤卓越哨卫$()，每次召唤之后将当前坐标与之前所储存的目标坐标相减，再使用$(l:hexcasting:patterns/math#hexcasting:abs)长度之纯化$()检查当前位置和目标位置之间的距离，然后利用$(hex)占卜师之提整$()来做$(l:hexcasting:hexguide/logics)逻辑判断$()：如果大于等于16则执行$(hex)双子、赫尔墨斯$()——继续循环；如果小于16，则直接在目标点位召唤哨卫，不再进行其他操作，循环自然停止。"
+            "3": "而后面一个部分则是一个循环结构，类似于iota:11fa54.json，通过$(l:hexcasting:patterns/stackmanip#hexcasting:over)勘探者之策略$()不断复制出步长，用$(l:hexcasting:patterns/spells/sentinels#hexcasting:sentinel/get_pos)定位哨卫$()获取当前哨卫坐标，二者相加，得到$(l)下一个召唤哨卫的位置$()，进行$(hex)召唤卓越哨卫$()，每次召唤之后将当前坐标与之前所储存的目标坐标相减，再使用$(l:hexcasting:patterns/math#hexcasting:abs)长度之纯化$()检查当前位置和目标位置之间的距离，然后利用$(hex)占卜师之提整$()来做$(l:hexcasting:guide/logics)逻辑判断$()：如果大于等于16则执行$(hex)双子、赫尔墨斯$()——继续循环；如果小于16，则直接在目标点位召唤哨卫，不再进行其他操作，循环自然停止。"
 
           }
         },

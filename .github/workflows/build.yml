@@ -166,6 +166,8 @@ jobs:
           fabric-api: ${{ matrix.fabric-api }}
 
   build-hexdoc:
+    # hexdoc 站点构建与模组 jar 解耦；缺 book 资源时允许失败，不挡 Fabric/Forge 测试
+    continue-on-error: true  # hexdoc optional
     runs-on: ubuntu-latest
     permissions:
       contents: read

@@ -47,5 +47,30 @@ fun HexGuideMessageS2C.applyOnClient(ctx: PacketContext) = ctx.queue {
                 cn.xm1221.HexGuide.compat.inline.IotaInlineCodec.saveToGameDirRef(ref, iotaNbt)
             }
         }
+
+        // 笔记分享串 → 写入系统剪贴板 + 聊天栏留一条可点击复制的消息（兜底/便于多次粘贴）
+        is MsgNoteShareS2C -> {
+            Minecraft.getInstance().execute {
+                Minecraft.getInstance().keyboardHandler.setClipboard(shareString)
+                val copyable = net.minecraft.network.chat.Component.translatable(
+                    messageKey,
+                    net.minecraft.network.chat.Component.literal(shareString).withStyle(
+                        net.minecraft.network.chat.Style.EMPTY.withColor(0x55FFFF)
+                            .withClickEvent(
+                                net.minecraft.network.chat.ClickEvent(
+                                    net.minecraft.network.chat.ClickEvent.Action.COPY_TO_CLIPBOARD, shareString
+                                )
+                            )
+                            .withHoverEvent(
+                                net.minecraft.network.chat.HoverEvent(
+                                    net.minecraft.network.chat.HoverEvent.Action.SHOW_TEXT,
+                                    net.minecraft.network.chat.Component.translatable("hexguide.copy.hover")
+                                )
+                            )
+                    )
+                )
+                net.minecraft.client.Minecraft.getInstance().gui.chat.addMessage(copyable)
+            }
+        }
     }
 }

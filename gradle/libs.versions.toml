@@ -41,7 +41,7 @@ serializationHooks = "0.4.99999"
 mixinExtras = "0.5.0"
 clothConfig = "11.1.106"
 modMenu = "7.1.0"
-inline = "1.20.1-1.0.1"
+inline = "1.20.1-1.2.2"
 
 caelus = "3.1.0+1.20"
 
@@ -50,6 +50,7 @@ caelus = "3.1.0+1.20"
 asm = "9.5"
 shadow = "7.1.2"
 modPublish = "1.0.0"
+junit = "5.8.1"
 
 [bundles]
 asm = ["asm", "asm-analysis", "asm-commons", "asm-tree", "asm-util"]
@@ -107,6 +108,9 @@ asm-analysis = { module="org.ow2.asm:asm-analysis", version.ref="asm" }
 asm-commons  = { module="org.ow2.asm:asm-commons", version.ref="asm" }
 asm-tree     = { module="org.ow2.asm:asm-tree", version.ref="asm" }
 asm-util     = { module="org.ow2.asm:asm-util", version.ref="asm" }
+
+# 纯 JVM 单元测试（common/src/test），不依赖 Minecraft
+junit-jupiter = { module="org.junit.jupiter:junit-jupiter", version.ref="junit" }
 
 
 serializationHooks = { module="io.github.tropheusj:serialization-hooks", version.ref="serializationHooks" }

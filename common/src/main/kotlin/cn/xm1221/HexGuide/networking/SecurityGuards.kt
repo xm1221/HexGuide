@@ -17,6 +17,12 @@ import java.util.concurrent.ConcurrentHashMap
  */
 object SecurityGuards {
 
+    /** 分享串（笔记剪贴板分享）的硬长度上限，与 [cn.xm1221.HexGuide.api.notes.NoteShareCodec] 保持一致。 */
+    const val MAX_SHARE_CHARS = 8192
+
+    /** 分享串每分钟最多尝试解码几次（含失败尝试，防止拿畸形串刷服务端）。 */
+    const val SHARE_PER_MINUTE = 10
+
     // ---------------- 速率限制 ----------------
 
     private class Window(start: Long, var count: Int) {

@@ -10,6 +10,10 @@ import java.util.UUID
 /**
  * 玩家笔记库（服务端存档，WorldSavedData）。
  * 结构：玩家 UUID → 节的列表；每节 = 一条笔记 = NoteIota 列表（一个 NoteIota 一页）。
+ *
+ * 存档挂在**主世界 / overworld** 的 DimensionDataStorage 上，跨维度共享同一份笔记。
+ * 旧版按维度落盘的 `dimensions/<dim>/data/hexguide_notes.dat` **不会**自动合并，需玩家自行
+ * `/hexguide export` 后再 import，或手动挪到 `world/data/hexguide_notes.dat`。
  */
 class PlayerNotes : SavedData() {
 
@@ -117,7 +121,10 @@ class PlayerNotes : SavedData() {
 
         private fun newData(): PlayerNotes = PlayerNotes()
 
-        fun get(level: ServerLevel): PlayerNotes =
-            level.dataStorage.computeIfAbsent(::load, ::newData, NAME)
+        /** 始终挂主世界 dataStorage，避免跨维度丢笔记。 */
+        fun get(level: ServerLevel): PlayerNotes {
+            val storage = level.server.overworld().dataStorage
+            return storage.computeIfAbsent(::load, ::newData, NAME)
+        }
     }
 }

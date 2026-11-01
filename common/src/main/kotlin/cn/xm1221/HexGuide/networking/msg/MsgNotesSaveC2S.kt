@@ -4,7 +4,8 @@ import net.minecraft.network.FriendlyByteBuf
 
 /**
  * 客户端→服务端：紫水晶笔保存笔记。
- * 服务端处理：每页消耗副手一张纸 → 生成携带该页 NoteIota 的"笔记残页"，并把整节写入 PlayerNotes。
+ * 服务端处理：每页消耗副手一张纸 → 生成携带该页 NoteIota 的"笔记残页"。
+ * 不写入 PlayerNotes；条目只能通过 note/import 图案加入笔记库。
  */
 class MsgNotesSaveC2S(
     val title: String,

@@ -12,6 +12,7 @@ import at.petrak.hexcasting.xplat.IXplatAbstractions
 import cn.xm1221.HexGuide.HexGuide
 import cn.xm1221.HexGuide.api.notes.NoteIota
 import cn.xm1221.HexGuide.api.notes.PlayerNotes
+import cn.xm1221.HexGuide.networking.SecurityGuards
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import dev.architectury.networking.NetworkManager.PacketContext
@@ -71,6 +72,12 @@ fun HexGuideMessageC2S.applyOnServer(ctx: PacketContext) = ctx.queue {
         // 把写模式记录的图案推入法杖栈（不执行），让法杖栈与本地栈同步
         is MsgBookSyncStackC2S -> {
             val player = ctx.player as? ServerPlayer ?: return@queue
+            if (SecurityGuards.rateLimited(player.uuid, "sync_stack", maxPerWindow = 8)) return@queue
+            if (patterns.size > SecurityGuards.MAX_SYNC_PATTERNS) return@queue
+            for (tag in patterns) {
+                if (!SecurityGuards.isReasonableNbt(tag, SecurityGuards.MAX_IOTA_NBT_BYTES)) return@queue
+                if (!SecurityGuards.isAllowedIotaTag(tag)) return@queue
+            }
             val vm = IXplatAbstractions.INSTANCE.getStaffcastVM(player, InteractionHand.MAIN_HAND)
             val newStack = ArrayList(vm.image.stack)
             for (tag in patterns) {
@@ -86,6 +93,9 @@ fun HexGuideMessageC2S.applyOnServer(ctx: PacketContext) = ctx.queue {
         // 演示"真执行"：上传的本地 CastingImage + 图案 → 新 VM 运行（不碰玩家法杖栈）→ 结果传回
         is MsgBookExecDemoC2S -> {
             val player = ctx.player as? ServerPlayer ?: return@queue
+            if (SecurityGuards.rateLimited(player.uuid, "exec_demo", maxPerWindow = 12)) return@queue
+            if (!SecurityGuards.isValidSignatureChars(sig)) return@queue
+            if (!SecurityGuards.isReasonableNbt(image, SecurityGuards.MAX_IMAGE_NBT_BYTES)) return@queue
             val world = player.serverLevel()
             val image = try {
                 CastingImage.loadFromNbt(image, world)
@@ -107,6 +117,10 @@ fun HexGuideMessageC2S.applyOnServer(ctx: PacketContext) = ctx.queue {
         // push_in：把指定 iota 交给服务端按原版逻辑执行（escapeNext → 转义；parenCount>0 → 进括号；否则压主栈）
         is MsgBookPushIotaC2S -> {
             val player = ctx.player as? ServerPlayer ?: return@queue
+            if (SecurityGuards.rateLimited(player.uuid, "push_iota", maxPerWindow = 16)) return@queue
+            if (!SecurityGuards.isReasonableNbt(iotaNbt, SecurityGuards.MAX_IOTA_NBT_BYTES)) return@queue
+            if (!SecurityGuards.isAllowedIotaTag(iotaNbt)) return@queue
+            if (!SecurityGuards.isReasonableNbt(image, SecurityGuards.MAX_IMAGE_NBT_BYTES)) return@queue
             val world = player.serverLevel()
             val image = try {
                 CastingImage.loadFromNbt(image, world)
@@ -128,6 +142,7 @@ fun HexGuideMessageC2S.applyOnServer(ctx: PacketContext) = ctx.queue {
         // 读取演示配置 data/<ns>/spellplays/<name>.json + 全局 pattern_vector（默认 origin 表）并传回客户端
         is MsgBookLoadSpellplayC2S -> {
             val player = ctx.player as? ServerPlayer ?: return@queue
+            if (SecurityGuards.rateLimited(player.uuid, "load_spellplay", maxPerWindow = 8)) return@queue
             val rl = ResourceLocation(ns, "spellplays/$name.json")
             try {
                 val opt = player.server.resourceManager.getResource(rl)
@@ -163,6 +178,7 @@ fun HexGuideMessageC2S.applyOnServer(ctx: PacketContext) = ctx.queue {
         // 追加 NoteIota 到某节末尾（编辑/导入）→ 回发全量
         is MsgNotesAppendC2S -> {
             val player = ctx.player as? ServerPlayer ?: return@queue
+            if (SecurityGuards.rateLimited(player.uuid, "notes_append", maxPerWindow = 8)) return@queue
             val notes = PlayerNotes.get(player.serverLevel())
             val iota = NoteIota.TYPE.deserialize(iota, player.serverLevel())
             if (iota != null) {
@@ -174,6 +190,7 @@ fun HexGuideMessageC2S.applyOnServer(ctx: PacketContext) = ctx.queue {
         // 新建一节（整节 = NoteIota 列表）→ 回发全量
         is MsgNotesNewSectionC2S -> {
             val player = ctx.player as? ServerPlayer ?: return@queue
+            if (SecurityGuards.rateLimited(player.uuid, "notes_new", maxPerWindow = 4)) return@queue
             val notes = PlayerNotes.get(player.serverLevel())
             val iotas = iotas.mapNotNull { NoteIota.TYPE.deserialize(it, player.serverLevel()) }
             notes.newSection(player.uuid, iotas)
@@ -184,9 +201,12 @@ fun HexGuideMessageC2S.applyOnServer(ctx: PacketContext) = ctx.queue {
         // 只产出物品，不写笔记库——条目只能通过 note/import 添加。
         is MsgNotesSaveC2S -> {
             val player = ctx.player as? ServerPlayer ?: return@queue
+            if (SecurityGuards.rateLimited(player.uuid, "notes_save", maxPerWindow = 4)) return@queue
+            if (title.length > SecurityGuards.MAX_NOTE_TITLE_CHARS) return@queue
+            if (pages.isEmpty() || pages.size > SecurityGuards.MAX_NOTE_PAGES) return@queue
+            if (pages.any { it.length > SecurityGuards.MAX_NOTE_PAGE_CHARS }) return@queue
             val off = player.offhandItem
             if (!off.`is`(net.minecraft.world.item.Items.PAPER)) return@queue
-            if (pages.isEmpty()) return@queue
             if (off.count < pages.size) {
                 player.displayClientMessage(Component.translatable("hexguide.notes.need_more_paper"), true)
                 return@queue

@@ -2,24 +2,20 @@
   item: {
     hexguide: {
       amethyst_pen: "Amethyst Pen",
-      note_scrap: "Note Scrap",
-    },
+      note_scrap: "Note Scrap"
+    }
   },
-
   hexguide: {
     scrying: {
-      open_book: "(Press %s to open The HexBook)",
+      open_book: "(Press %s to open The HexBook)"
     },
-
     search: {
-      placeholder: "Type to search...",
+      placeholder: "Type to search..."
     },
-
     copy: {
       hover: "Click to copy",
-      saved: "Saved as %s (click to copy)",
+      saved: "Saved as %s (click to copy)"
     },
-
     notes: {
       unnamed: "Untitled Note",
       new: "+ New",
@@ -33,32 +29,38 @@
       prev_page: "<",
       next_page: ">",
       page_indicator: "Page %s / %s",
-      editor_title: "Note Editor",
+      editor_title: "Note Editor"
     },
-
     categories: {
       guide: "Hex Guide",
-      description: "This section was written by my hand — of that I am certain — and yet whether it truly comes from my hand is another matter. I remember leaving my mark in this notebook word by word, and still I cannot help but wonder for whom these sections were written. What reader was I hoping for back then? It is a question worth pondering — one that is sometimes even frightening.$(br2)$(o)\"All that I know, I speak freely.\"$()",
-      // TODO: 填充
+      description: "This section was written by my hand \u2014 of that I am certain \u2014 and yet whether it truly comes from my hand is another matter. I remember leaving my mark in this notebook word by word, and still I cannot help but wonder for whom these sections were written. What reader was I hoping for back then? It is a question worth pondering \u2014 one that is sometimes even frightening.$(br2)$(o)\"All that I know, I speak freely.\"$()",
       notes: "Player Notes",
-      description2: "TODO: fill",
+      description2: "Everything I write with the Amethyst Pen.",
+      description0: "I gathered the new Hex lore I stumbled upon and wrote it down here for later.",
+      description1: "Common spells I keep so I do not forget them \u2014 and so I can build new ones from them.",
+      mods: "Notes on New Lore",
+      spells: "Common Spell Examples"
     },
-
     demo: {
       logics: {
         "0": "Raycast to get coordinates",
         "1": "Duplicate for comparison",
         "2": "Push a Null",
         "3": "Are they equal?",
-        "c": "Push an option",
+        c: "Push an option",
         "4": "Augur's Exaltation",
-        "5": "Execute",
+        "5": "Execute"
       },
+      quines: {
+        "0": "Process the list",
+        "1": "Replace the placeholder"
+      }
     },
-
     entry: {
       notes: {
-        items: "TODO: fill",
+        items: "Note Tools",
+        notes: "Read Notes",
+        notes_index: "Note Index"
       },
       search: "Book Search",
       hexguide_patterns: "HexGuide Patterns",
@@ -75,111 +77,198 @@
         notes_index: "Player Notes",
         notes: "My Notes",
         mods: {
-          hexal: "",
+          hexal: "On Wisps",
           hexop: "A Kinder Nature",
           hexflow: "Thoth's Innovations",
+          hexcassettes: "Cassettes and Daemons",
+          moreiotas: "More Useful Iotas"
         },
-
+        continuation: "Continuations, Jumps, and Iris",
+        great: "Thoughts on Great Spells",
+        spells: {
+          allay: "On Quenching Allays",
+          arrow: "Tricks with Fast Arrows",
+          blocks: "Breaking Blocks in Bulk",
+          boom: "Better Explosions",
+          far_away: "Casting at a Distance",
+          lights: "Raycast Tips and Light Spells",
+          media: "Media! Media!"
+        },
+        tips: "On Avoiding Mishaps"
       },
       casting: {
-        hexguide: "About The HexBook",
-      },
+        hexguide: "About The HexBook"
+      }
     },
-
     page: {
-      "notes": {
+      notes: {
         items: {
-          "0": "TODO: fill",
-          "1": "TODO: fill",
-          "2": "TODO: fill",
-          "3": "TODO: fill",
-          "4": "TODO: fill",
-          "5": "TODO: fill",
-        },
+          "0": "Hold an Amethyst Pen and keep paper in your offhand to open the note editor.",
+          "1": "Saving spends one paper per page and gives you Note Scraps carrying each page.",
+          "2": "Cast note/import with a Note Scrap (or pass Note Iotas on the stack) to add pages to your library.",
+          "3": "Notes are stored on the server overworld save and sync when you join.",
+          "4": "Use /hexguide export and import to back up sections as JSON under hexguide/notes/.",
+          "5": "Operators note/list, note/get, and note/delete manage sections from the casting stack.",
+          "6": "Copies the top Iota to your clipboard as text and reveals it for sharing or pasting into books. If the boolean is true, it also saves the Iota under $(thing)hexguide/iotas/$ so you can embed it later with a reference like iota:hash.json/$."
+        }
       },
       search: {
-        "0": "Below is a text search box for the contents and entries of The HexBook. Simply type in a name, keyword, or natural language description to find relevant entries. Click any result to jump directly to that page.",
+        "0": "Below is a text search box for the contents and entries of The HexBook. Simply type in a name, keyword, or natural language description to find relevant entries. Click any result to jump directly to that page."
       },
       notes_index: {
-        "0": "Here you can write your own notes. Each note is a list of pages; click a note in the list above to browse it. Notes are stored on your server save and can be exchanged with other players as Iotas.",
+        "0": "Here you can write your own notes. Each note is a list of pages; click a note in the list above to browse it. Notes are stored on your server save and can be exchanged with other players as Iotas."
       },
       guide: {
         mods: {
           hexal: {
-            "0": "",
-            "1": "",
-            "2": "",
+            "0": "Wisps are autonomous casting agents from Hexal. Bind patterns into them and they keep working while you do something else.",
+            "1": "$(l:hexcasting:patterns/spells/wisps#hexal:wisp/move/target/set)Pathfinder's Gambit$() lets a $(thing)cyclic wisp$() move, so you can build self-directed workers \u2014 pair that with block-breaking spells and you might even mine on autopilot.",
+            "2": "Record more Hexal findings here as you learn them."
           },
+          hexcassettes: {
+            "0": "$(l:hexcasting:async)Cassettes$() enable so-called $(thing)asynchronous hexes$(). By $(l:hexcasting:async#hexcassettes:enqueue)enqueueing$() a hex onto a cassette, you can release it later in a fresh $(hex)casting environment$(). Note that cassette casting is $(action)unrelated$() to the cast that enqueued it \u2014 the cassette owns its own environment.",
+            "1": "Imagine a hex whose only job is to $(o)enqueue itself$().$(br2)Some time later it fires again, forming a $(thing)daemon$() \u2014 a standing, continuous cast.$(br2)There are two approaches: store the spell in some $(hex)external medium$() and re-read it each time to delay-execute \u2014 and that stored spell is itself \u2014",
+            "2": "Or make the hex's execution $(action)itself regenerate$() an Iota identical to $(hex)itself$(). That takes work, but it is elegant. First look at this pattern list$(br)iota:11fa54.json$() \u2014 after running it copies itself, runs itself again, and finally mishaps in a loop. Close to what we want. Now look at$(br)iota:quine.json$() which becomes$(br)iota:real_quine.json after execution.",
+            "3": "The final list under one $(hex)Hermes' Gambit$() is still itself. Notice that $(t:Flock's Disintegration, 1, Prospector's Gambit, Surgeon's Exaltation)iota:q_part.json$()$(br)appears twice in the final list, replacing Gemini Decomposition and $(action)Hermes' Gambit$() from the earlier loop. The resulting $(hex)$(t:iota:real_quine.json)list$() is essentially two $(hex)self-reproducing$() halves.",
+            "4": "Continuous casting follows naturally. Take $(t:iota:quine.json)$(hex)this list$(): after the inner Surgeon's Exaltation, add a number, enqueue, and your spell \u2014 without net stack change \u2014 and each run will enqueue a hex that again enqueues itself. Forever. The list should look like:$(br)$(t:the spell may sit before or after the enqueue step)iota:daemon.json$()."
+          },
+          hexflow: {
+            "0": "$(l:hexcasting:patterns/meta#hexcasting:for_each)Thoth's Gambit$() is the king of repetition: it applies a pattern list to every element of a target list, but it always $(thing)copies the initial stack$() as the base of each sub-run. Fine for small work; nested or facing thousands of Iotas, the stack cost is painful. Hexflow rethinks Thoth and the wider $(l:hexcasting:guide/meta)execution model$().",
+            "1": "First, $(action)$(l:hexcasting:hexflow_thoth#hexflow:pure_map)Nehemetawi's Gambit$()$(): just like Thoth, except it $(thing)does not copy the initial stack$() \u2014 every sub-run starts empty.$(br2)Then $(action)$(l:hexcasting:hexflow_thoth#hexflow:pure_reduce)Conway's Gambit$()$(): fold a long list with an accumulator without the same stack bloat.",
+            "2": "Thoth needs a target list, and coordinates are often hand-built. Hexflow turns $(thing)geometric traversal$() into patterns:$(br)$(li)$(action)$(l:hexcasting:hexflow#hexflow:for_range/cube)Rubik's Gambit$()$(): traverse a box given two opposite corners; an optional number (0\u20133) sets order \u2014 unsorted, nearest, farthest, or random;$(li)other range patterns cover lines, planes, and spheres similarly.",
+            "3": "A few small, sharp patterns:$(br)$(li)$(action)$(l:hexcasting:hexflow#hexflow:build_nested)Matryoshka$()$(): copy a list and write it back at a given index;$(li)$(action)$(l:hexcasting:hexflow#hexflow:nested_modify)Organ Transplant Exaltation$()$(): walk nested lists by a chain of indices, replace the leaf, and return the modified structure.",
+            "4": "Finally, two patterns about execution itself. $(action)$(l:hexcasting:hexflow#hexflow:weak_escape)Weak Consideration$()$() matches $(l:hexcasting:patterns/patterns_as_iotas#hexcasting:escape)Consideration$() but has the $(thing)lowest execution priority$(): inside nested $(l:hexcasting:patterns/patterns_as_iotas)Introspection$(), it behaves more predictably for builders."
+          },
+          hexop: {
+            "0": "Nature's rules for hexcasters seem to have loosened of late. Spells sealed in $(thing)casting items$() are less opaque; $(l:hexcasting:mishaps)mishaps$() that once dropped items from your hand are less brutal; $(thing)true names$() still point to their owners across dimensions; some once-forbidden $(thing)teleport$() targets are allowed again.$(br2)I do not yet know where these leniencies come from, but the new tricks below share the same hand.",
+            "1": "A $(l:hexcasting:guide/stack)staff$() environment inherits its stack each time you open the grid; that stack can now be manipulated explicitly: $(action)Mind In$() pushes the top Iota into the staff stack, $(action)Mind Out$() pops it back, $(action)Mind Depth$() reports the staff-stack depth, and $(action)Hieroglyph$() collects every pattern already drawn on the canvas into a list.",
+            "2": "Stranger still is $(action)Delay$(): it $(thing)defers$() a pattern list by several ticks into a split casting environment \u2014 like lighting a silent fuse. The cost is clear: that delayed cast $(o)sends you no messages; revelations and mishaps are silent$(); only one delay may hang per environment, and a new one $(thing)replaces$() the old. $(action)Delay Insight$() reports what is pending.",
+            "3": "I also found a new $(thing)media path$() \u2014 the $(hex)personal media bar$(). It moves with me. $(action)Mana Insight$() reports stored media (in units of $(thing)0.0001 dust$/), and $(action)Arcane Insight$() reports the cap. Depth and regen both depend on me, and only appear after $(l:hexcasting:greatwork/enlightenment)Enlightenment$().",
+            "4": "One more small thing: circle media waves now pass through $(thing)amethyst buds' parent rock$/, spending a little media each time to grow the clusters. They say terrible things happen if media runs out \u2014 I am already building a circle-driven amethyst farm. Nature has been kind; I must be favoured."
+          },
+          moreiotas: {
+            "0": "I found several practical new Iotas: strings, types, items, and matrices.$(br2)Strings store human-readable text, and related $(l:hexcasting:patterns/strings#moreiotas:string/name/set)naming spells$() make it easy to name items or entities. $(hexcasting:patterns/types)Type Iotas$() let you filter the world by kind.",
+            "1": "For example, keep a $(hex)$(t:iota:c9412e.json)zombie Type Iota$(), then use $(action)$(l:hexcasting:patterns/types#moreiotas:zone_entity/type)Zone Distillation: Type$() to gather every nearby zombie Entity Iota, and handle them $(hex)with ease$(). Item Iotas similarly name stacks and inventories.",
+            "2": "As for $(l:hexcasting:patterns/matrices)matrices$/, they are complex; to avoid errors I will not record them yet."
+          }
         },
         iotas: {
-          "0": "Hex Casting is a craft that uses $(media)media/$ to manipulate Iotas, and through them the world itself, rewriting reality. Iotas are the \"names\" of all things; we use patterns to obtain Iotas, change their types, compute with them, or execute them — all to draw the information (Iotas) we want from Nature. Then we feed that information to patterns in the right form to achieve the effect we desire. Many patterns combined can create spells as powerful as works of art.",
-          "1": "There are many kinds of Iotas: vectors iota:hexguide:vec0.json, numbers iota:double0.json, entities, patterns, booleans iota:bool0.json, and lists iota:list0.json, among others. Different types carry different meanings: a vector Iota usually represents a position, direction, or velocity; a number Iota is just a number. Most special of all is the Pattern Iota — it stands for a pattern that might itself be cast — and a list of patterns usually means a whole spell made of meaningful patterns. For example iota:list0.json",
-          "2": "Besides those mentioned above, Garbage Iotas like iota:garbage.json and iota:null.json are also common.",
+          "0": "Hex Casting is a craft that uses $(media)media/$ to manipulate Iotas, and through them the world itself, rewriting reality. Iotas are the \"names\" of all things; we use patterns to obtain Iotas, change their types, compute with them, or execute them \u2014 all to draw the information (Iotas) we want from Nature. Then we feed that information to patterns in the right form to achieve the effect we desire. Many patterns combined can create spells as powerful as works of art.",
+          "1": "There are many kinds of Iotas: vectors iota:hexguide:vec0.json, numbers iota:double0.json, entities, patterns, booleans iota:bool0.json, and lists iota:list0.json, among others. Different types carry different meanings: a vector Iota usually represents a position, direction, or velocity; a number Iota is just a number. Most special of all is the Pattern Iota \u2014 it stands for a pattern that might itself be cast \u2014 and a list of patterns usually means a whole spell made of meaningful patterns. For example iota:list0.json",
+          "2": "Besides those mentioned above, Garbage Iotas like iota:garbage.json and iota:null.json are also common."
         },
         actions: {
-          "0": "Hex casters manipulate Iotas, and through them the objective world. The tools used to manipulate, multiply, consume, and transform Iotas — and thereby rewrite reality — are what this text calls $(thing)Actions$(). In general, most $(thing)Actions$() correspond to a meaningful $(thing)pattern$(); by drawing those patterns on the grid, we can execute the corresponding action. If an action cannot actually be executed, you will run into a $(thing)mishap$(). This makes it clear: patterns do not always correspond to actions, so there are patterns with no meaning — draw them and you will suffer a mishap.",
-          "1": "Likewise, not every action that can be performed has a corresponding pattern, but I will not go into that here. Next come Spells. In the narrow sense, a $(thing)Spell$() refers to the series of patterns in the Spells section of this book that affect the world — for example $(l:hexcasting:patterns/spells/basic#hexcasting:explode)$(action)Explosion/$. Most spells merely consume Iotas, performing no complex manipulation of them, while costing more or less media. In a broader sense, hex casters also call any carefully crafted list of patterns a \"spell\" or a \"hexcast\". Understanding and distinguishing these concepts is important for learning and mastering Hex Casting.",
-          "2": "The essence of casting should then be obvious: use patterns like $(l:hexcasting:patterns/basics#hexcasting:get_caster)$(action)Mind's Reflection/$ and $(l:hexcasting:patterns/basics#hexcasting:raycast)$(action)Archer's Distillation/$ to draw Iotas from the world, use $(l:hexcasting:patterns/stackmanip)stack manipulation$() patterns such as Jester's Gambit and Gemini Decomposition to arrange the order, quantity, and types of Iotas on the stack to suit the spell, then execute the spell pattern. That is the fundamental method of casting.",
+          "0": "Hex casters manipulate Iotas, and through them the objective world. The tools used to manipulate, multiply, consume, and transform Iotas \u2014 and thereby rewrite reality \u2014 are what this text calls $(thing)Actions$(). In general, most $(thing)Actions$() correspond to a meaningful $(thing)pattern$(); by drawing those patterns on the grid, we can execute the corresponding action. If an action cannot actually be executed, you will run into a $(thing)mishap$(). This makes it clear: patterns do not always correspond to actions, so there are patterns with no meaning \u2014 draw them and you will suffer a mishap.",
+          "1": "Likewise, not every action that can be performed has a corresponding pattern, but I will not go into that here. Next come Spells. In the narrow sense, a $(thing)Spell$() refers to the series of patterns in the Spells section of this book that affect the world \u2014 for example $(l:hexcasting:patterns/spells/basic#hexcasting:explode)$(action)Explosion/$. Most spells merely consume Iotas, performing no complex manipulation of them, while costing more or less media. In a broader sense, hex casters also call any carefully crafted list of patterns a \"spell\" or a \"hexcast\". Understanding and distinguishing these concepts is important for learning and mastering Hex Casting.",
+          "2": "The essence of casting should then be obvious: use patterns like $(l:hexcasting:patterns/basics#hexcasting:get_caster)$(action)Mind's Reflection/$ and $(l:hexcasting:patterns/basics#hexcasting:raycast)$(action)Archer's Distillation/$ to draw Iotas from the world, use $(l:hexcasting:patterns/stackmanip)stack manipulation$() patterns such as Jester's Gambit and Gemini Decomposition to arrange the order, quantity, and types of Iotas on the stack to suit the spell, then execute the spell pattern. That is the fundamental method of casting."
         },
         stack: {
-          "0": "The place where hex casters manipulate Iotas is the $(l:hexcasting:casting/stack)stack$(). A stack is \"last in, first out\" — like a pile of plates, stacked one on top of another; you take from the top. The so-called spellcasting grid — simply a canvas — is where patterns are drawn. Drawing the right pattern on the $(l:hexcasting:guide/stack#hexguide:spellcasting)grid$() executes the corresponding action. Right-click with a staff to open the grid; sneak-right-click to open it while clearing both the canvas and the stack. The stack is shown in the top-left corner of the grid.",
-          "1": "While casting with a staff you can see the stack directly, so you can draw patterns flexibly to perform the actions you want and release fitting spells.$(br2)But sometimes that is not so convenient, so hex casters prepare a $(action)pattern list$() in advance and write it into a $(l:hexcasting:items/hexcasting)casting item$() or focus, to cast quickly. So what is the difference between casting from an item and casting from a staff? The biggest difference is the $(thing)casting environment$() — it determines the caster, the source of media, the casting hand, and other vital information.",
+          "0": "The place where hex casters manipulate Iotas is the $(l:hexcasting:casting/stack)stack$(). A stack is \"last in, first out\" \u2014 like a pile of plates, stacked one on top of another; you take from the top. The so-called spellcasting grid \u2014 simply a canvas \u2014 is where patterns are drawn. Drawing the right pattern on the $(l:hexcasting:guide/stack#hexguide:spellcasting)grid$() executes the corresponding action. Right-click with a staff to open the grid; sneak-right-click to open it while clearing both the canvas and the stack. The stack is shown in the top-left corner of the grid.",
+          "1": "While casting with a staff you can see the stack directly, so you can draw patterns flexibly to perform the actions you want and release fitting spells.$(br2)But sometimes that is not so convenient, so hex casters prepare a $(action)pattern list$() in advance and write it into a $(l:hexcasting:items/hexcasting)casting item$() or focus, to cast quickly. So what is the difference between casting from an item and casting from a staff? The biggest difference is the $(thing)casting environment$() \u2014 it determines the caster, the source of media, the casting hand, and other vital information.",
           "2": "For example, a staff's casting environment is the staff environment, which uses media from your inventory; a $(l:hexcasting:items/ancient_cyphers)cypher's$() environment can only use the media stored within itself.$(br2)In general, each cast creates a new environment carrying new information (the ancients called it a $(thing)Casting Image$()), so each use of a casting item does not inherit the previous stack, Raven's Thoughts, impetus marks, and so on. A staff, however, has a special property: every time you open the grid, it inherits the previous stack and Raven's Thoughts.",
-          "3": "Strangely enough, by linking this $(thing)HexBook$() to my mind, it can act much like a staff. Click the Cast button and patterns drawn on the grid will take effect just like a normal staff; click it again to $(l:hexcasting:patterns/patterns_as_iotas)escape$() all patterns drawn afterwards, pushing them onto the stack. The Clr button clears the canvas.",
+          "3": "Strangely enough, by linking this $(thing)HexBook$() to my mind, it can act much like a staff. Click the Cast button and patterns drawn on the grid will take effect just like a normal staff; click it again to $(l:hexcasting:patterns/patterns_as_iotas)escape$() all patterns drawn afterwards, pushing them onto the stack. The Clr button clears the canvas."
         },
         escape: {
           "0": "$(action)Consideration, Introspection, and Retrospection/$ are arguably the three most special patterns of all. Most actions manipulate the stack and the world; these three instead change the \"state\" of the casting.$(br2)In general, a pattern executes as soon as it is drawn. But if you draw Consideration or Introspection beforehand, subsequently drawn patterns turn yellow, marking them as \"escaped\". $(l:hexcasting:patterns/patterns_as_iotas)See here for a detailed description of patterns/$.",
-          "1": "$(thing)Escaping$() means making an Iota lose its original meaning — instead of executing its corresponding action, it is pushed as a mere Iota into a list or onto the stack.$(br2)In Hex Casting, every Iota has meaning; you might say every Iota corresponds to an \"action\", except that for most Iotas that action is \"throw a mishap\". So executing them directly with $(l:hexcasting:patterns/meta)$(action)Hermes' Gambit/$ or Thoth's Gambit throws a mishap.",
-          "2": "Thus the secret of Hermes is revealed:$(br2)When Hermes receives a non-list Iota — say, a Pattern Iota — it executes the corresponding \"action\" directly; when it receives a list, it executes the action of each Iota in turn, as if drawing the patterns one by one on the grid.$(br2)Note that a list Iota's own action is merely to throw a mishap, so a list like iota:list1.json also throws a mishap under Hermes' Gambit.",
-          "3": "Escaping has another use: embedding non-pattern Iotas inside patterns. The simplest way is Consideration, written as a list like iota:list2.json. However, Consideration takes priority over Introspection, so it does not work well inside layers of Introspection and Retrospection.$(br2)A more general method of escaping looks like$(br)iota:list3.json$(br)First pack the Iotas into a list with Introspection and Retrospection, then use $(l:hexcasting:patterns/lists#hexcasting:splat)$(action)Flock's Disintegration/$ to unpack the list, pushing its elements onto the stack.",
+          "1": "$(thing)Escaping$() means making an Iota lose its original meaning \u2014 instead of executing its corresponding action, it is pushed as a mere Iota into a list or onto the stack.$(br2)In Hex Casting, every Iota has meaning; you might say every Iota corresponds to an \"action\", except that for most Iotas that action is \"throw a mishap\". So executing them directly with $(l:hexcasting:patterns/meta)$(action)Hermes' Gambit/$ or Thoth's Gambit throws a mishap.",
+          "2": "Thus the secret of Hermes is revealed:$(br2)When Hermes receives a non-list Iota \u2014 say, a Pattern Iota \u2014 it executes the corresponding \"action\" directly; when it receives a list, it executes the action of each Iota in turn, as if drawing the patterns one by one on the grid.$(br2)Note that a list Iota's own action is merely to throw a mishap, so a list like iota:list1.json also throws a mishap under Hermes' Gambit.",
+          "3": "Escaping has another use: embedding non-pattern Iotas inside patterns. The simplest way is Consideration, written as a list like iota:list2.json. However, Consideration takes priority over Introspection, so it does not work well inside layers of Introspection and Retrospection.$(br2)A more general method of escaping looks like$(br)iota:list3.json$(br)First pack the Iotas into a list with Introspection and Retrospection, then use $(l:hexcasting:patterns/lists#hexcasting:splat)$(action)Flock's Disintegration/$ to unpack the list, pushing its elements onto the stack."
         },
         foreach: {
-          "0": "$(l:hexcasting:patterns/meta#hexcasting:for_each)$(action)Thoth's Gambit/$ looks complex but is actually very simple: it takes two lists — the first is the $(hex)pattern list$(), the second may be called the target list.$(br2)Thoth's Gambit executes the actions in the first list against every element of the second list, with one small twist. For easy understanding: Thoth's Gambit is like working in several stacks identical to the current one,",
-          "1": "pushing one element of the first list into each of them, then executing the actions given by the pattern list in every new stack, and finally gathering the results — all elements of all those stacks — into a single list returned to the original stack.$(br2)For example: suppose the stack holds iota:210983.json; push $(l:hexcasting:patterns/math#hexcasting:add)$(action)Additive Distillation iota:5f5abf.json/$ and then iota:8cac19.json, then use Thoth's Gambit. For every Iota, it creates a new stack identical to the original, pushes the Iota into it, giving$(br)iota:74fc83.json$(br)iota:a5f05d.json$(br)iota:d37a8c.json$(br)then executes iota:5f5abf.json in each of them,",
-          "2": "collecting the results separately, the overall result packed together is:$(br)iota:aa94c6.json$(br2)Thoth's Gambit is mainly used for repeated operations — for example, breaking blocks over a large area, or applying negative effects to all entities in a range. For instance, this spell$(br)iota:1fcc1e.json$(br)first uses $(l:hexcasting:patterns/entities#hexcasting:zone_entity/player)$(action)Zone Distillation: Player/$ to get all entities in range, and $(l:hexcasting:patterns/stackmanip#hexcasting:swap)$(action)Jester's Gambit/$ to arrange them. Then Thoth's Gambit accelerates each of them once. You can try Thoth's Gambit on the $(l:hexcasting:guide/stack#hexguide:spellcasting)grid/$ to the right.",
+          "0": "$(l:hexcasting:patterns/meta#hexcasting:for_each)$(action)Thoth's Gambit/$ looks complex but is actually very simple: it takes two lists \u2014 the first is the $(hex)pattern list$(), the second may be called the target list.$(br2)Thoth's Gambit executes the actions in the first list against every element of the second list, with one small twist. For easy understanding: Thoth's Gambit is like working in several stacks identical to the current one,",
+          "1": "pushing one element of the first list into each of them, then executing the actions given by the pattern list in every new stack, and finally gathering the results \u2014 all elements of all those stacks \u2014 into a single list returned to the original stack.$(br2)For example: suppose the stack holds iota:210983.json; push $(l:hexcasting:patterns/math#hexcasting:add)$(action)Additive Distillation iota:5f5abf.json/$ and then iota:8cac19.json, then use Thoth's Gambit. For every Iota, it creates a new stack identical to the original, pushes the Iota into it, giving$(br)iota:74fc83.json$(br)iota:a5f05d.json$(br)iota:d37a8c.json$(br)then executes iota:5f5abf.json in each of them,",
+          "2": "collecting the results separately, the overall result packed together is:$(br)iota:aa94c6.json$(br2)Thoth's Gambit is mainly used for repeated operations \u2014 for example, breaking blocks over a large area, or applying negative effects to all entities in a range. For instance, this spell$(br)iota:1fcc1e.json$(br)first uses $(l:hexcasting:patterns/entities#hexcasting:zone_entity/player)$(action)Zone Distillation: Player/$ to get all entities in range, and $(l:hexcasting:patterns/stackmanip#hexcasting:swap)$(action)Jester's Gambit/$ to arrange them. Then Thoth's Gambit accelerates each of them once. You can try Thoth's Gambit on the $(l:hexcasting:guide/stack#hexguide:spellcasting)grid/$ to the right."
         },
         meta: {
-          "0": "Meta-execution hides the deepest mysteries of Hex Casting; to understand Hex Casting, you must understand meta-execution. From the notes, we can see that $(l:hexcasting:patterns/meta)$(action)Hermes' Gambit/$ pops a pattern or pattern list from the top of the stack and runs it.$(br2)That is easy to grasp. Yet at the end of these notes, $(l:hexcasting:patterns/meta#hexcasting:halt)$(action)Charon's Gambit/$ is also mentioned — it can stop a cast, but unlike simply lowering the staff or having a mishap interrupt the cast, it can stop those \"gambits\".",
+          "0": "Meta-execution hides the deepest mysteries of Hex Casting; to understand Hex Casting, you must understand meta-execution. From the notes, we can see that $(l:hexcasting:patterns/meta)$(action)Hermes' Gambit/$ pops a pattern or pattern list from the top of the stack and runs it.$(br2)That is easy to grasp. Yet at the end of these notes, $(l:hexcasting:patterns/meta#hexcasting:halt)$(action)Charon's Gambit/$ is also mentioned \u2014 it can stop a cast, but unlike simply lowering the staff or having a mishap interrupt the cast, it can stop those \"gambits\".",
           "1": "Stop the \"gambits\"? What does that mean? What is the difference between a pattern executed by meta-execution and one drawn one by one with a staff?$(br2)To explain, we need a basic understanding of the $(hex)mechanics of casting$(). For a single cast, the place that stores the stack, Raven's Thoughts, and other basic data is called the $(hex)Casting Image$(); what stores all the operations the caster is about to perform is called the $(thing)Continuation$().$(br2)When casting by drawing directly with a staff, the caster never told Nature in advance what operations they would perform, so there is no need to consider continuations here.",
-          "2": "When we use meta-execution like Hermes' Gambit to run a pattern list, a marker is inserted into the current continuation, and then every operation in the pattern list is inserted after that marker in order. The operations inserted afterwards — those about to be performed — are collectively called the $(thing)Execution Frame$(). The marker and the execution frame together form a $(thing)Casting Boundary$().$(br2)And so the mystery of meta-execution is revealed: Hermes' Gambit creates a casting boundary and pushes an execution frame; if Charon's Gambit is executed inside the frame, it climbs up the continuation, finds the marker Hermes inserted, ends the cast within the boundary,",
-          "3": "leaps out of the current meta-execution frame, and continues with any later operations.$(br2)Take iota:d04cdc.json, for example:$(br)Mind's Reflection and Reveal will be executed, while Compass' Purification and Reveal after Charon's Gambit will not.$(br2)Charon works with Thoth's Gambit much the same way: when Charon is met inside Thoth's Gambit, Thoth's traversal stops and execution returns to the level above Thoth.",
+          "2": "When we use meta-execution like Hermes' Gambit to run a pattern list, a marker is inserted into the current continuation, and then every operation in the pattern list is inserted after that marker in order. The operations inserted afterwards \u2014 those about to be performed \u2014 are collectively called the $(thing)Execution Frame$(). The marker and the execution frame together form a $(thing)Casting Boundary$().$(br2)And so the mystery of meta-execution is revealed: Hermes' Gambit creates a casting boundary and pushes an execution frame; if Charon's Gambit is executed inside the frame, it climbs up the continuation, finds the marker Hermes inserted, ends the cast within the boundary,",
+          "3": "leaps out of the current meta-execution frame, and continues with any later operations.$(br2)Take iota:d04cdc.json, for example:$(br)Mind's Reflection and Reveal will be executed, while Compass' Purification and Reveal after Charon's Gambit will not.$(br2)Charon works with Thoth's Gambit much the same way: when Charon is met inside Thoth's Gambit, Thoth's traversal stops and execution returns to the level above Thoth."
         },
         logics: {
-          "0": "Different situations call for different spells — that is obvious. But relying on the caster to switch spells every time is hardly elegant, nor is it convenient. So we can use methods to implement $(thing)\"if...then...\"$() logic. The most common method uses $(l:hexcating:logic#hexcasting:if)$(action)Augur's Exaltation/$: based on the first boolean provided, it keeps either the third or the second element; combined with $(action)Hermes' Gambit/$, this yields an \"if...then...\" branch.",
-          "1": "For example, this spell$(br)iota:5592af.json$(br)first uses Archer's Distillation to get the target coordinates, then $(l:hexcasting:stackmanip#hexcasting:duplicate)duplicates$() it and checks whether it is null with $(l:hexcasting:logic#hexcasting:equals)$(action)Equality Distillation/$; if so, it clears the stack with $(l:hexcasting:stackmamip#hexcasting:pseudo-novice)$(action)Novice's Gambit/$, otherwise it breaks the block. This spell has a more detailed $(l:hexcasting:guide/logics#play)demonstration/$ later on.$(br2)Beyond this method, you can also use $(l:hexcasting:lists#hexcasting:index)$(action)Selection Distillation/$ to pick different elements of a list by index for multi-way branching — not detailed here.",
+          "0": "Different situations call for different spells \u2014 that is obvious. But relying on the caster to switch spells every time is hardly elegant, nor is it convenient. So we can use methods to implement $(thing)\"if...then...\"$() logic. The most common method uses $(l:hexcating:logic#hexcasting:if)$(action)Augur's Exaltation/$: based on the first boolean provided, it keeps either the third or the second element; combined with $(action)Hermes' Gambit/$, this yields an \"if...then...\" branch.",
+          "1": "For example, this spell$(br)iota:5592af.json$(br)first uses Archer's Distillation to get the target coordinates, then $(l:hexcasting:stackmanip#hexcasting:duplicate)duplicates$() it and checks whether it is null with $(l:hexcasting:logic#hexcasting:equals)$(action)Equality Distillation/$; if so, it clears the stack with $(l:hexcasting:stackmamip#hexcasting:pseudo-novice)$(action)Novice's Gambit/$, otherwise it breaks the block. This spell has a more detailed $(l:hexcasting:guide/logics#play)demonstration/$ later on.$(br2)Beyond this method, you can also use $(l:hexcasting:lists#hexcasting:index)$(action)Selection Distillation/$ to pick different elements of a list by index for multi-way branching \u2014 not detailed here."
         },
         demo: {
           "0": "This page demonstrates pattern drawing and the stack. Patterns appear on the grid one by one, and each drawn pattern is pushed onto the stack as a Pattern Iota shown in the top-left box. Use the buttons to pause or restart the demonstration."
         },
+        continuation: {
+          "0": "A continuation is a pact with Nature \u2014 a blueprint of the operations still waiting to be done. Plainly: $(thing)a continuation is the sequence of operations yet to run$(). When I draw patterns one by one with a staff, the continuation is empty, because Nature does not yet know what I will draw next.$(br2)When I use meta-execution such as $(l:hexcasting:patterns/meta#hexcasting:eval)Hermes' Gambit$/, I make a pact: \"I will perform these operations,\" and Nature remembers them as a continuation.",
+          "1": "That promised sequence of operations is the continuation. Meta-ops like Hermes' Gambit and Thoth's Gambit push new work into the continuation and mark which part they added. $(action)Charon's Gambit$() uses that mark to escape from meta-execution.$(br2)$(l:hexcasting:patterns/meta#hexcasting:eval/cc)Iris' Gambit$() is subtler still: it can capture a continuation as an Iota and later jump into it.",
+          "2": "If a \"jump\" Iota is executed, it immediately aborts the current hex and replaces the remaining work with the operations stored inside it. For example: $(t:iota:aa4924.json)$(hex)see this hex$()$(br2)Split that hex at Iris' Gambit into two parts, $(t:iota:6b85dd.json)$(hex)see here$() and $(t:iota:aa9bc9.json)$(hex)see here$(), and you can see how control transfers."
+        },
+        great: {
+          "0": "I cannot cast these great spells, even though I can feel the boundless power encoded on the ancient scrolls \u2014 yet there must be a way. After bathing in their presence my mind has $(hex)changed$(); I have lifted a corner of the $(hex)veil$() that covers Nature and been allowed to offer my own consciousness, spending life to cast. How much must I offer to pass through completely\u2026",
+          "1": "Perhaps almost everything.$(br2)--I have tried many ways to win Nature's favour and beg for $(hex)Enlightenment$/, and all of them failed, so I must take a risk.$(br2)I will try to offer nearly all of my life in a single cast. My full health is about two charged amethyst; a little life equals a pinch of amethyst dust. If I cast a spell that costs 19 dust while carrying no media at all\u2026 ah, may I return safely."
+        },
+        spells: {
+          allay: {
+            "0": "$(l:hexcasting:greatwork/quenching_allay)Quenching allays$()\u2026 what a discovery!$(br2)These charming beings need only simple $(t:jukebox)music$() and a few amethyst shards to $(t:an allay holding an amethyst shard splits when it hears a jukebox)$(hex)breed$(). As they split again and again, media doubles and doubles; when that pure mind is sealed into amethyst blocks I can almost hear Quenched Amethyst sing.",
+            "1": "Breeding allays",
+            "2": "Build an allay farm \u2014 it helps produce Quenched Amethyst in bulk."
+          },
+          arrow: {
+            "0": "Arrows deal more damage the faster they fly. If a hex can push an arrow to extreme speed, one shot hits hard. The obvious approach is $(hex)many Impulse casts in a row$/, but that burns media.$(br2)Alternatively, use $(thing)many small explosions$() to accelerate the arrow instead.",
+            "1": "See this example:$(br)iota:arrow.json**n$(br2)$(br2)$(br2)It uses non-item/non-living $(l:hexcasting:patterns/entites#hexcasting:zone_entity/not_item)Zone Distillation$() intersected with $(l:hexcasting:patterns/sets#hexcasting:and)Intersection$() to grab nearby arrows, then accelerates them.",
+            "2": "Even with a $(l:hexcasting:items/hexcasting)casting item$/, swapping to cast right after shooting is awkward. Perhaps better methods will come with more study."
+          },
+          blocks: {
+            "0": "$(action)$(l:hexcasting:patterns/spells/blockworks#hexcasting:break_block)Break Block$() is among the most-used $(hex)spells$/, but breaking one by one is tedious.$(br2)With $(l:hexcasting:patterns/meta)Thoth's Gambit$() you can break many blocks at once \u2014 Break Block takes a position and breaks the block there.",
+            "1": "So we need the coordinates of every block we want to break. The plan is clear:$(br)Archer's Distillation gives one block position; from that, gather all target positions \u2014 again with $(hex)Thoth$().$(br2)See:$(br)iota:c93f9c.json**n",
+            "2": "The list looks long, but it mostly repeats similar patterns with Thoth:$(br)iota:49f422.json$(br)Each pass triples a vector: two get a unit offset on opposite axes, one stays. 1\u21923\u21929\u219227 fills a 3\u00d73\u00d73 cube. Add $(action)Break Block$() on the last pass and you clear a volume in one cast.",
+            "3": "You can also save that long coordinate list and $(thing)embed$() it into later hexes for convenience \u2014 see $(l:hexcasting:guide/escape)escaping$()."
+          },
+          boom: {
+            "0": "$(l:hexcasting:patterns/spells/basic#hexcasting:explode)Explosion$() is a fine way to hurt foes, but it scars the terrain.$(br2)One workaround: $(l:hexcasting:patterns/stackmanip#hexcasting:duplicate_n)Gemini's Gambit$() the target vector, place water (or another filler) first, explode, then clean up.",
+            "1": "Use $(action)Place Block$() to flood with water, then $(action)Break Block$() to erase the traces \u2014 a $(thing)terrain-safe blast$(). Example:$(br)iota:booms.json**n$(br2)With $(action)Zone Distillation$() and $(action)Thoth$() you might even scale it into a wide-area attack."
+          },
+          far_away: {
+            "0": "Nature grants hexcasters only a limited $(thing)casting range$/, so acting on distant targets seems impossible. After $(hex)Enlightenment$() I learned how to break that limit.$(br2)$(l:hexcasting:patterns/great_spells/greater_sentinel)Greater Sentinel$() adds a 16-block casting radius around itself. Chain them and your reach grows.",
+            "1": "Keep summoning a $(hex)Greater Sentinel$() inside the previous one's range, stepping toward the target \u2014 I call it \"walking the sentinel\". Notes:$(br)iota:far_away.json**n$(br2)$(br2)It takes an external start coordinate; the first pattern is $(l:hexcasting:patterns/spells/sentinels)Create Sentinel$/.",
+            "2": "The rest splits into two parts:$(br)iota:far_away_0.json**n$(br2)and$(br)iota:far_away_1.json**n$(br2)$(br2)The first summons the initial sentinel and builds a unit direction from caster to target, times 16, as the per-step $(l)offset$().",
+            "3": "The second is a loop akin to iota:11fa54.json: $(l:hexcasting:patterns/stackmanip#hexcasting:over)Prospector's Gambit$() keeps copying the step, $(l:hexcasting:patterns/spells/sentinels#hexcasting:sentinel/get_pos)Locate Sentinel$() reads the current position, add them, and summon again until the target is covered."
+          },
+          lights: {
+            "0": "With $(l:hexcasting:patterns/spells/blockworks#hexcasting:place_block)Place Block$/, $(hex)Create Light$/, or $(hex)Enlighten Sapling$/, $(action)Archer's Distillation$() often gives the wrong vector \u2014 it skips air and non-colliding blocks like saplings and returns the first solid hit.$(br2)That is awkward when you wanted the air next to a wall.",
+            "1": "Use $(l:hexcasting:patterns/basics#hexcasting:raycast/axis)Architect's Distillation$() instead: it returns the face normal of the first solid block. Add Archer's and Architect's results to get the adjacent air cell along your look. Example:$(br)iota:raycast0.json**n$(br2)Enlighten Sapling works the same way \u2014 air and saplings are alike here."
+          },
+          media: {
+            "0": "Casting needs media \u2014 lots of it. My skill grows; my media does not.$(br2)Media! Media! The trickle from an $(hex)amethyst geode$() cannot keep up\u2026 I need another way. $(thing)Media comes from thought; thought from mind; every act of thinking leaves a trace of media$(). Perhaps carry less amethyst per cast, perhaps find new geodes \u2014 still not enough.",
+            "1": "My knowledge is still thin; I need more. $(l:hexcasting:patterns/great_spells)Great spells$() \u2014 I must find them, whether by crafting crystalline media into $(l:hexcasting:items/phials)phials$() or by $(l:hexcasting:patterns/great_spells/brainsweep)any other means$(). For media I will stop at nothing."
+          }
+        },
+        tips: {
+          "0": "Nature does not always favour hexcasters. Power comes with punishment for $(hex)mistakes$() \u2014 mishaps. Wrong patterns, missing Iotas, insufficient media, unescaped non-pattern Iotas \u2014 all invite mishaps. Careful notes and careful counting avoid most of them.$(br2)Rarer ones still matter: $(thing)stack overflow$() and the op-count cap.",
+          "1": "Iotas have $(thing)size$(). Most are size 1; a list is 1 plus the sizes of its elements. When the stack's total size exceeds 1023 you mishap from overflow \u2014 clear leftover Iotas after each stretch of work. The $(action)op-count cap$() limits how many patterns one cast may run (usually ~100,000).",
+          "2": "Good hexcasters leave no junk on the stack after a cast \u2014 clean stacks are easier to debug.$(br2)If managing the stack is tedious, park Iotas in $(l:hexcasting:patterns/readwrite#hexcasting:local)Raven's Thoughts$() or push them into $(l:hexcasting:patterns/lists)lists$() until needed."
+        }
       },
       casting: {
-        into: "\"I shall go and see, I shall go and know, I shall learn what I seek. Though the named shall return to the void, and the knowing shall be bound to the path, human toil yields nothing in the end — yet strive with all one's heart, and die halfway, facing the Great Work, with no regrets in life.\"",
-        hexguide: "I use this notebook to record my understanding of Hex Casting, and in my studies it will always accompany me, from the very beginning to the very end.$(br2)I suspect the knowledge in this book may grow too vast and complex for any mind to grasp at once, so I am determined to write down my deeper understanding of the craft here. For those who come after...$(br2)$(o)But who will ever read my $(thing)notes$()? And who will read the $(l:hexcasting:guide)notes on the notes$()?$()",
+        into: "\"I shall go and see, I shall go and know, I shall learn what I seek. Though the named shall return to the void, and the knowing shall be bound to the path, human toil yields nothing in the end \u2014 yet strive with all one's heart, and die halfway, facing the Great Work, with no regrets in life.\"",
+        hexguide: "I use this notebook to record my understanding of Hex Casting, and in my studies it will always accompany me, from the very beginning to the very end.$(br2)I suspect the knowledge in this book may grow too vast and complex for any mind to grasp at once, so I am determined to write down my deeper understanding of the craft here. For those who come after...$(br2)$(o)But who will ever read my $(thing)notes$()? And who will read the $(l:hexcasting:guide)notes on the notes$()?$()"
       },
       hexguide_patterns: {
         copy: "$(l:hexcasting:guide/hexguide_patterns#hexguide:copy)$(action)Copy Iota/$ copies the top Iota of the stack to your clipboard and prints a clickable reference in chat, so you can share it or paste it into the book. It also saves the Iota as a JSON file under $(thing)hexguide/iotas/$ in the game directory, which can be displayed inline anywhere via a reference like $(br)$(code)iota:hash.json/$.",
-        demo: "$(l:hexcasting:guide/hexguide_patterns#hexguide:demo)$(action)Save Demo/$ takes the list Iota on top of the stack (each Pattern Iota in the list becomes one step of the demo), generates a spellplay configuration file, and saves it under $(thing)hexguide/spellplays/$ in the game directory. Drop the generated file into a datapack at $(code)data/hexguide/spellplays/$ and it can be played on the Spellcasting Demo page of this book.",
-      },
+        demo: "$(l:hexcasting:guide/hexguide_patterns#hexguide:demo)$(action)Save Demo/$ takes the list Iota on top of the stack (each Pattern Iota in the list becomes one step of the demo), generates a spellplay configuration file, and saves it under $(thing)hexguide/spellplays/$ in the game directory. Drop the generated file into a datapack at $(code)data/hexguide/spellplays/$ and it can be played on the Spellcasting Demo page of this book."
+      }
     },
-
     book: {
       patterns: {
         spells: {
           dummy_spells: {
             "": "Dummy Spells",
-            congratulate: "Remove an entity from the stack, then congratulate them.",
-          },
+            congratulate: "Remove an entity from the stack, then congratulate them."
+          }
         },
         great_spells: {
           dummy_great_spells: {
             "": "Dummy Great Spells",
-            "congratulate/great": "Same as $(l:patterns/spells/dummy_spells#hexguide:congratulate)$(action)Congratulate/$, but as a great spell.",
-          },
-        },
-      },
-    },
+            "congratulate/great": "Same as $(l:patterns/spells/dummy_spells#hexguide:congratulate)$(action)Congratulate/$, but as a great spell."
+          }
+        }
+      }
+    }
   },
-
   hexcasting: {
     action: {
       "hexguide:": {
@@ -187,71 +276,63 @@
         "congratulate/great": "Great Congrats!",
         copy: "Copy Iota",
         demo: "Save Demo",
+        "note/import": "Import Note",
+        "note/list": "Venus' Purification",
+        "note/get": "Mercury's Purification",
+        "note/delete": "Delete Entry"
       },
-
-      // use this to add shortened versions of pattern names if the full name won't fit in the ingame book
-      // you don't need to add an entry for every pattern - the above value will be used as a default
       book: {
         "hexguide:": {
-          congratulate: "Congratulate",
-        },
-      },
-    },
+          congratulate: "Congratulate"
+        }
+      }
+    }
   },
-
   text: {
     hexguide: {
-      congrats: "Tell %1$s they're doing a good job!",
+      congrats: "Tell %1$s they're doing a good job!"
     },
-
     "autoconfig.hexguide": {
       title: "Hex Guide Config",
-
       category: {
         client: "Client",
-        server: "Server",
+        server: "Server"
       },
-
       option: {
         client: {
           dummyClientConfigOption: {
             "": "Dummy Client Config Option",
-            "@Tooltip": "This is an example of a client-side config option that accepts a boolean.",
-          },
+            "@Tooltip": "This is an example of a client-side config option that accepts a boolean."
+          }
         },
-
         server: {
           dummyServerConfigOption: {
             "": "Dummy Server Config Option",
-            "@Tooltip": "This is an example of a server-side config option that accepts an integer.",
+            "@Tooltip": "This is an example of a server-side config option that accepts an integer."
           },
-
           fixTags: {
             "": "Interop Tag Fix",
-            "@Tooltip": "Copy Fabric-path action tags (data/<ns>/tags/action/) into the hexcasting:action registry at server start. Fixes lost tags from Fabric addons under Connector. Default on.",
-          },
-        },
-      },
-    },
+            "@Tooltip": "Copy Fabric-path action tags (data/<ns>/tags/action/) into the hexcasting:action registry at server start. Fixes lost tags from Fabric addons under Connector. Default on."
+          }
+        }
+      }
+    }
   },
-
   key: {
     hexguide: {
-      open_hexbook: "Open The HexBook",
-    },
+      open_hexbook: "Open The HexBook"
+    }
   },
-
   category: {
     hexguide: {
-      scrying: "Hex Guide",
-    },
+      scrying: "Hex Guide"
+    }
   },
-
   tab: {
     hexguide: {
       patterns: "All Hex Patterns",
       slate_name: "Slate - %s",
-      scroll_name: "Scroll - %s",
-    },
-  },
+      scroll_name: "Scroll - %s"
+    }
+  }
 }

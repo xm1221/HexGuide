@@ -11,11 +11,11 @@ import vazkii.patchouli.client.book.gui.GuiBook;
 import vazkii.patchouli.client.book.gui.GuiBookEntry;
 
 /**
- * 让自定义书页能消费滚轮（目录页滚动、笔记页翻页）。
+ * 让自定义书页能消费滚轮（目前：笔记目录页列表滚动）。
  *
- * Patchouli 的 GuiBook.mouseScrolled 无条件 changePage(true/false)，页面拿不到滚轮，
- * 无法做「列表滚动」或「单页内翻页」。这里在 HEAD 先交给当前显示中的页面：
- * 若页面消费了滚轮就直接返回 true，否则走原版翻页（SHIFT 行为不变）。
+ * Patchouli 的 GuiBook.mouseScrolled 无条件 changePage(true/false)，页面拿不到滚轮。
+ * 这里在 HEAD 先交给当前显示中的页面：若页面消费了滚轮就直接返回 true，
+ * 否则走原版翻页（SHIFT 行为不变）。笔记显示页已改回原生多页，不再依赖本 Mixin。
  */
 @Mixin(GuiBook.class)
 public abstract class MixinGuiBook {

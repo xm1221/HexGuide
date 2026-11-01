@@ -13,12 +13,12 @@ import vazkii.patchouli.client.book.gui.GuiBookEntry
 
 /**
  * 笔记目录页（hexguide:note_index）。
- * 列出当前玩家所有节（笔记）：标题 + 页码；点击某节 → 设为当前节并跳转到显示条目。
+ * 列出当前玩家所有节（笔记）：标题；点击某节 → 设为当前节并跳转到显示条目的原生第 0 页。
+ * 显示条目仍是 Patchouli 多页（~256 note_page），之后用书本翻页浏览本节。
  * 新建笔记用【紫水晶笔】（副手纸右键）。
  *
- * 条数超过一页时可滚动：鼠标滚轮滚动（滚轮被 Patchouli 吃掉时会翻书页，故同时提供底部 ▲▼ 按钮），
- * 底部显示 `起始-结束/总数` 范围指示；点击行按「相对行 + 滚动偏移」换算成绝对索引，
- * 修复此前行可点但点不准的问题。
+ * 条数超过一页时可滚动：鼠标滚轮滚动（经 MixinGuiBook；滚到顶/底交还原版翻页），
+ * 同时提供底部 ▲▼；底部显示 `起始-结束/总数`；点击行按「相对行 + 滚动偏移」换算绝对索引。
  */
 class NoteIndex : BookPage(), ScrollablePage {
     @Transient
@@ -101,7 +101,7 @@ class NoteIndex : BookPage(), ScrollablePage {
                     GuiBook.PAGE_WIDTH - ROW_X * 2, ROW_H)) {
                 // 相对行 + 滚动偏移 = 绝对索引（此前漏了偏移，滚页后点错节）
                 ClientNotes.setCurrent(scrollOff + row)
-                // 跳到显示条目（动态找 entry id，适配条目移动——path 以 notes 结尾）
+                // 跳到显示条目第 0 页（Patchouli 原生页码 = 本节第 1 个 NoteIota；之后用书本翻页）
                 val notesEntry = parent.book.contents.entries.values
                     .firstOrNull { it.id.path.endsWith("/notes") }
                 if (notesEntry != null) {

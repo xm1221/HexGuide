@@ -7,8 +7,10 @@ import vazkii.patchouli.client.book.gui.GuiBookEntry
  * 让 BookPage 能吃到鼠标滚轮。
  *
  * Patchouli 的 `GuiBook.mouseScrolled` 无条件翻书页、不转发给页面（BookPage 也没有滚轮回调），
- * 所以目录页/笔记页的「滚轮滚动」需要 MixinGuiBook 在 HEAD 先问一遍当前显示中的页面。
+ * 所以目录页的「列表滚动」需要 MixinGuiBook 在 HEAD 先问一遍当前显示中的页面。
  * 页面在 onDisplayed 里注册、onHidden 里注销；返回 false 时保持原版翻页行为。
+ *
+ * 笔记显示页改回 Patchouli 原生多页后不再实现本接口。
  */
 interface ScrollablePage {
     /** 滚轮：坐标为页面相对坐标，scroll>0 上滚。返回 true 表示已消费（不再翻书页）。 */

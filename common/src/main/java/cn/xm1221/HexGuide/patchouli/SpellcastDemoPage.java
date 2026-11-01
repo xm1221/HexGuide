@@ -15,7 +15,7 @@ import at.petrak.hexcasting.client.gui.GuiSpellcasting;
 import at.petrak.hexcasting.common.lib.HexSounds;
 import at.petrak.hexcasting.common.lib.hex.HexActions;
 import cn.xm1221.HexGuide.HexGuide;
-import cn.xm1221.HexGuide.compat.inline.IotaInlineData;
+import cn.xm1221.HexGuide.compat.inline.IotaInlineCodec;
 import cn.xm1221.HexGuide.networking.msg.MsgBookExecDemoC2S;
 import cn.xm1221.HexGuide.networking.msg.MsgBookLoadSpellplayC2S;
 import cn.xm1221.HexGuide.networking.msg.MsgBookPushIotaC2S;
@@ -388,11 +388,8 @@ public class SpellcastDemoPage extends BookPage {
                 return IotaType.serialize(new ListIota(elems));
             }
             if (s.startsWith("iota:")) {
-                IotaInlineData data = IotaInlineData.parse(s.substring(5));
-                if (data != null) {
-                    Iota iota = data.getOrDeserialize();
-                    if (iota != null) return IotaType.serialize(iota);
-                }
+                Iota iota = IotaInlineCodec.resolve(s.substring(5));
+                if (iota != null) return IotaType.serialize(iota);
             }
         } catch (Exception ignored) {}
         return null;

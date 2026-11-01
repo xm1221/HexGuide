@@ -44,7 +44,7 @@ fun HexGuideMessageS2C.applyOnClient(ctx: PacketContext) = ctx.queue {
         // iota 同步（OpTextCopy 保存广播）→ 以相同 ref 保存到本端游戏目录
         is MsgIotaSyncS2C -> {
             Minecraft.getInstance().execute {
-                cn.xm1221.HexGuide.compat.inline.IotaInlineData.saveToGameDirRef(ref, iotaNbt)
+                cn.xm1221.HexGuide.compat.inline.IotaInlineCodec.saveToGameDirRef(ref, iotaNbt)
             }
         }
     }

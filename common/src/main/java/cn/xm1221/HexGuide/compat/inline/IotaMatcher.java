@@ -40,8 +40,13 @@ public class IotaMatcher implements RegexMatcher {
         String raw = mr.group(2);
         if (raw == null || raw.isEmpty()) return new Tuple<>(null, 0);
 
-        IotaInlineData data = IotaInlineData.parse(raw);
-        if (data == null || data.getOrDeserialize() == null) return new Tuple<>(null, 0);
+        IotaInlineData data = new IotaInlineData(raw);
+        if (data.getOrDeserialize() == null) {
+            if (IotaInlineCodec.splitSuffixes(raw).core.endsWith(".json")) {
+                HexGuide.LOGGER.warn("[IotaInlineData] 资源 iota 解析失败: {}", raw);
+            }
+            return new Tuple<>(null, 0);
+        }
 
         return new Tuple<>(new InlineMatch.DataMatch(data, data.getExtraStyle()), 0);
     }

@@ -5,7 +5,7 @@ import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
 import at.petrak.hexcasting.api.casting.getBool
 import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.iota.IotaType
-import cn.xm1221.HexGuide.compat.inline.IotaInlineData
+import cn.xm1221.HexGuide.compat.inline.IotaInlineCodec
 import cn.xm1221.HexGuide.networking.msg.MsgIotaSyncS2C
 import net.minecraft.network.chat.ClickEvent
 import net.minecraft.network.chat.Component
@@ -30,7 +30,7 @@ class OpTextCopy: ConstMediaAction {
         val caster = env.castingEntity
         val iota = args.get(0)
         val bool = args.getBool(1,argc)
-        var key = IotaInlineData.toPrefixed(iota)
+        var key = IotaInlineCodec.toPrefixed(iota)
         if(bool){
             key = IotaType.serialize(iota).toString()
         }
@@ -41,7 +41,7 @@ class OpTextCopy: ConstMediaAction {
             caster.sendSystemMessage(text)
             // 仅 bool=true 时保存：以 JSON 形式保存到 <gameDir>/<ns>/iotas/，并提示资源引用
             if (bool) {
-                val savedRef = IotaInlineData.saveToGameDir(iota)
+                val savedRef = IotaInlineCodec.saveToGameDir(iota)
                 if (savedRef != null) {
                     val ref = "iota:$savedRef.json"
                     val saveMsg = Component.translatable("hexguide.copy.saved", ref)

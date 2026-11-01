@@ -36,18 +36,25 @@ class PlayerNotes : SavedData() {
     fun sections(uuid: UUID): MutableList<MutableList<NoteIota>> =
         notes.getOrPut(uuid) { mutableListOf() }
 
-    /** 追加一个 NoteIota 到某玩家的第 sectionIndex 节末尾（索引越界则忽略） */
+    /**
+     * 追加一个 NoteIota 到某玩家的第 sectionIndex 节末尾。
+     * 索引越界、或已到总量上限时忽略（上限见 SecurityGuards.MAX_*，防止单客户端撑爆存档）。
+     */
     fun appendIota(uuid: UUID, sectionIndex: Int, iota: NoteIota) {
         val secs = sections(uuid)
-        if (sectionIndex in secs.indices) {
+        if (sectionIndex in secs.indices &&
+            secs[sectionIndex].size < cn.xm1221.HexGuide.networking.SecurityGuards.MAX_SECTION_IOTAS
+        ) {
             secs[sectionIndex].add(iota)
             setDirty()
         }
     }
 
-    /** 新建一节（整个节 = NoteIota 列表，可为空建空节） */
+    /** 新建一节（整个节 = NoteIota 列表，可为空建空节）；到上限则忽略 */
     fun newSection(uuid: UUID, iotas: List<NoteIota>) {
-        sections(uuid).add(iotas.toMutableList())
+        val secs = sections(uuid)
+        if (secs.size >= cn.xm1221.HexGuide.networking.SecurityGuards.MAX_NOTE_SECTIONS) return
+        secs.add(iotas.take(cn.xm1221.HexGuide.networking.SecurityGuards.MAX_SECTION_IOTAS).toMutableList())
         setDirty()
     }
 

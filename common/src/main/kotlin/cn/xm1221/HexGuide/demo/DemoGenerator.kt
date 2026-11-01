@@ -5,7 +5,7 @@ import at.petrak.hexcasting.api.casting.iota.PatternIota
 import at.petrak.hexcasting.api.casting.math.HexDir
 import at.petrak.hexcasting.common.lib.hex.HexActions
 import cn.xm1221.HexGuide.HexGuide
-import cn.xm1221.HexGuide.compat.inline.IotaInlineData
+import cn.xm1221.HexGuide.compat.inline.IotaInlineCodec
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
@@ -76,7 +76,7 @@ object DemoGenerator {
                 else -> {
                     // 非图案 → push 步骤，内联 iota:<a85> 编码
                     s.addProperty("type", "push")
-                    s.addProperty("push", IotaInlineData.toPrefixed(iota))
+                    s.addProperty("push", IotaInlineCodec.toPrefixed(iota))
                 }
             }
             steps.add(s)
@@ -88,7 +88,7 @@ object DemoGenerator {
     /**
      * 生成演示配置并保存为文件：`&lt;游戏目录&gt;/&lt;ns&gt;/spellplays/&lt;name&gt;.json`。
      *
-     * 保存位置与 [IotaInlineData.saveToGameDir] 一致（游戏目录，不写入 mods jar 数据包），
+     * 保存位置与 [IotaInlineCodec.saveToGameDir] 一致（游戏目录，不写入 mods jar 数据包），
      * 生成的文件可手动放入数据包 `data/&lt;ns&gt;/spellplays/` 供手册演示页使用。
      *
      * @param iotas 演示序列

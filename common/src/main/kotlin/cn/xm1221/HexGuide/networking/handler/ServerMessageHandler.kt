@@ -95,7 +95,7 @@ fun HexGuideMessageC2S.applyOnServer(ctx: PacketContext) = ctx.queue {
             val player = ctx.player as? ServerPlayer ?: return@queue
             if (SecurityGuards.rateLimited(player.uuid, "exec_demo", maxPerWindow = 12)) return@queue
             if (!SecurityGuards.isValidSignatureChars(sig)) return@queue
-            if (!SecurityGuards.isReasonableNbt(image, SecurityGuards.MAX_IMAGE_NBT_BYTES)) return@queue
+            if (!SecurityGuards.isReasonableCastImage(image, SecurityGuards.MAX_IMAGE_NBT_BYTES)) return@queue
             val world = player.serverLevel()
             val image = try {
                 CastingImage.loadFromNbt(image, world)
@@ -120,7 +120,7 @@ fun HexGuideMessageC2S.applyOnServer(ctx: PacketContext) = ctx.queue {
             if (SecurityGuards.rateLimited(player.uuid, "push_iota", maxPerWindow = 16)) return@queue
             if (!SecurityGuards.isReasonableNbt(iotaNbt, SecurityGuards.MAX_IOTA_NBT_BYTES)) return@queue
             if (!SecurityGuards.isAllowedIotaTag(iotaNbt)) return@queue
-            if (!SecurityGuards.isReasonableNbt(image, SecurityGuards.MAX_IMAGE_NBT_BYTES)) return@queue
+            if (!SecurityGuards.isReasonableCastImage(image, SecurityGuards.MAX_IMAGE_NBT_BYTES)) return@queue
             val world = player.serverLevel()
             val image = try {
                 CastingImage.loadFromNbt(image, world)
@@ -179,6 +179,7 @@ fun HexGuideMessageC2S.applyOnServer(ctx: PacketContext) = ctx.queue {
         is MsgNotesAppendC2S -> {
             val player = ctx.player as? ServerPlayer ?: return@queue
             if (SecurityGuards.rateLimited(player.uuid, "notes_append", maxPerWindow = 8)) return@queue
+            if (!SecurityGuards.isReasonableNoteTag(iota)) return@queue
             val notes = PlayerNotes.get(player.serverLevel())
             val iota = NoteIota.TYPE.deserialize(iota, player.serverLevel())
             if (iota != null) {
@@ -191,6 +192,8 @@ fun HexGuideMessageC2S.applyOnServer(ctx: PacketContext) = ctx.queue {
         is MsgNotesNewSectionC2S -> {
             val player = ctx.player as? ServerPlayer ?: return@queue
             if (SecurityGuards.rateLimited(player.uuid, "notes_new", maxPerWindow = 4)) return@queue
+            if (iotas.size > SecurityGuards.MAX_NOTE_PAGES) return@queue
+            if (!iotas.all { SecurityGuards.isReasonableNoteTag(it) }) return@queue
             val notes = PlayerNotes.get(player.serverLevel())
             val iotas = iotas.mapNotNull { NoteIota.TYPE.deserialize(it, player.serverLevel()) }
             notes.newSection(player.uuid, iotas)

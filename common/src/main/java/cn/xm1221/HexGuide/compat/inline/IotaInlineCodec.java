@@ -195,10 +195,52 @@ public final class IotaInlineCodec {
         return IotaType.deserialize(TagParser.parseTag(elem.toString()), null);
     }
 
-    /** 根据 "ns:path"（可带 .json）加载 Iota 并返回其 display Component；失败返回原引用文本 */
+    /** 按 "ns:path"（可带 .json）加载 Iota 并返回其 display Component；失败返回原引用文本 */
     public static net.minecraft.network.chat.Component displayFromRef(String ref) {
         Iota iota = loadFromResource(ref);
         return iota != null ? iota.display() : net.minecraft.network.chat.Component.literal(ref);
+    }
+
+    /**
+     * 服务端专用的 iota 资源加载：只查服务端数据包（[server] 非空时）与游戏目录，
+     * **不碰客户端** `Minecraft.getInstance()`，因此可以在专用服务器上安全调用。
+     *
+     * @param server 服务端实例；null 时只查游戏目录（例如 `/hexguide demoexport` 之外的非会话上下文会传 null）
+     */
+    @Nullable
+    public static Iota loadFromServer(@Nullable net.minecraft.server.MinecraftServer server, String ref) {
+        try {
+            Ref parsed = splitSuffixes(ref);
+            String core = parsed.core;
+            int colon = core.lastIndexOf(':');
+            String ns, path;
+            if (colon > 0) {
+                ns = core.substring(0, colon);
+                path = core.substring(colon + 1);
+            } else {
+                ns = HexGuide.MODID;
+                path = core;
+            }
+            if (!path.endsWith(".json")) path += ".json";
+
+            if (server != null) {
+                ResourceLocation rl = new ResourceLocation(ns, "iotas/" + path);
+                var opt = server.getResourceManager().getResource(rl);
+                if (opt.isPresent()) {
+                    try (var reader = new InputStreamReader(opt.get().open())) {
+                        return deserializeJson(JsonParser.parseReader(reader));
+                    }
+                }
+            }
+
+            Path file = Platform.getGameFolder().resolve(ns).resolve("iotas").resolve(path);
+            if (Files.exists(file)) {
+                return deserializeJson(JsonParser.parseString(Files.readString(file)));
+            }
+            return null;
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     // ─── 保存到游戏目录 ────────────────────────────────────────

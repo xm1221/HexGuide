@@ -11,7 +11,8 @@ This document covers HexGuide's new features: the **in-book spellcasting demo** 
 
 - [1. 手册内嵌施法演示（Spellplay 动画配置）](#1-手册内嵌施法演示spellplay-动画配置)
 - [2. Iota 文本内嵌（Inline 渲染）](#2-iota-文本内嵌inline-渲染)
-- [3. 语言文件 / 界面补充](#3-语言文件--界面补充)
+- [3. 笔记分享串（剪贴板 / Clipboard share strings）](#3-笔记分享串剪贴板--clipboard-share-strings)
+- [4. 语言文件 / 界面补充](#4-语言文件--界面补充)
 
 ---
 
@@ -122,6 +123,46 @@ Each `.json` file under the directory may hold defaults for **multiple** actions
 
 示例 / Example: `data/hexguide/pattern_vector/example.json`
 
+### 1.7 从游戏里生成草稿 / Generating drafts in-game
+
+有两种不用手写 JSON 的方式，生成的文件都落在 `<游戏目录>/hexguide/spellplays/`，
+可直接拷进数据包 `data/<ns>/spellplays/`，再在演示页用 `"demo": "<ns>:<name>"` 引用。
+
+**a) 图案 `demo`（栈上列表 → 草稿）**
+
+栈顶压一个列表，列表里的每个 `PatternIota` 变成一步图案步骤，其它 iota 变成 `push` 步骤。
+输出是完整的 `title` / `interval` / `clear_before` / `start_dir` / `steps[]` 结构（§1.3），不是片段。
+
+- 列表**第一个元素是笔记 Iota** 时，用它的标题作为演示标题与文件名（笔记一键变动画）
+- 否则文件名为 `demo_<时间戳>_<随机>`
+- 聊天栏会打印可点击复制的路径提示
+
+```
+[列表] demo
+```
+
+**b) `/hexguide demoexport <索引>`（笔记 → 草稿）**
+
+把第 `<索引>` 节笔记里**能识别**的引用抽出来生成草稿：
+
+| 正文写法 | 解析结果 |
+|---|---|
+| `iota:<a85>` | 解码为对应 iota（列表会展开为多步） |
+| `iota:<ns>:<name>.json` | 从服务端数据包 `data/<ns>/iotas/` 或游戏目录加载 |
+| `pattern{<朝向>,<笔顺>}` / `pattern[<朝向>,<笔顺>]` | 该图案的一步 |
+
+解不出的引用**跳过并计数**（提示「跳过 N 处」），不做完整 Markdown 解析。
+这是务实取舍：笔记正文是给人读的，图案被引用即可演示，正文散文不参与解析。
+
+Two in-game ways to produce a draft without hand-writing JSON; both write to
+`<gameDir>/hexguide/spellplays/`, ready to copy into `data/<ns>/spellplays/`.
+
+**a) Pattern `demo`** — push a list; each `PatternIota` becomes a pattern step and every other
+iota becomes a `push` step. If the first element is a note Iota its title is used as the demo
+title and filename. **b) `/hexguide demoexport <index>`** — extracts recognizable
+`iota:<a85>` / `iota:<ns>:name.json>` / `pattern{<dir>,<sig>}` references from note section
+`<index>`; unparseable references are skipped and counted.
+
 ---
 
 ## 2. Iota 文本内嵌（Inline 渲染）
@@ -179,7 +220,50 @@ The game also prints a reference `iota:<hash>.json` (click to copy), usable dire
 
 ---
 
-## 3. 语言文件 / 界面补充
+## 3. 笔记分享串（剪贴板 / Clipboard share strings）
+
+没有传文件权限的多人服里，可以把一节笔记压成一个字符串发在聊天里。
+
+```
+/hexguide export <索引> clipboard      # 生成分享串并复制到剪贴板
+/hexguide import clipboard <HG1:...>   # 校验并导入
+```
+
+**格式 / Format**
+
+```
+HG1: + Ascii85( DEFLATE( JSON ) )
+```
+
+JSON 与 `/hexguide export` 写出的文件**完全同一套 schema**（`{"version":1,"pages":[{title,body,author,id,time},...]}`），
+所以既能分享串、也能落文件，两者可以互相转换。Ascii85 字母表与 `iota:` 内联编码相同（`!`..`u`，`z` = 4 个零字节）。
+
+The JSON is byte-for-byte the same schema as the file written by `/hexguide export`, so share strings and
+files are interchangeable. The Ascii85 alphabet matches the `iota:` inline encoding.
+
+**限制 / Limits**（全部在服务端校验，客户端不能直接写笔记库 / validated server-side）
+
+| 项 | 上限 |
+|---|---|
+| 分享串长度 | 8192 字符（超出直接拒绝，不截断） |
+| 解压后 JSON | 128 KiB（防压缩炸弹） |
+| 页数 | 64 |
+| 标题 / 正文 | 64 / 2048 字符 |
+| 尝试频率 | 每玩家 10 次/分钟 |
+
+**说明 / Notes**
+
+- 服务端**不能**直接把内容放进你的剪贴板（Minecraft 只允许客户端点击 `COPY_TO_CLIPBOARD` 触发），
+  所以 `/hexguide export ... clipboard` 会下发一个小包，由客户端写入剪贴板，并在聊天栏再留一条可点击复制的消息。
+- 导入走 [`SecurityGuards`](common/src/main/kotlin/cn/xm1221/HexGuide/networking/SecurityGuards.kt) 的同一套权限与上限，
+  并沿用 `/hexguide authority` 的单玩家开关。
+- 编解码器 `NoteShareCodec` 是纯 JVM 代码（不引用 Minecraft 类），单测见
+  `common/src/test/kotlin/cn/xm1221/HexGuide/api/notes/NoteShareCodecTest.kt`
+  （往返、坏前缀、超长、压缩炸弹、a85 边界）。
+
+---
+
+## 4. 语言文件 / 界面补充
 
 - 创造模式标签页：全部已注册图案的石板 / 卷轴（排除逐世界图案与卓越图案）
 - 手册新增条目：搜索、施法网格（交互）、施法演示（动画）

@@ -27,4 +27,12 @@ dependencies {
         implementation(it)
         annotationProcessor(it)
     }
+
+    // 纯 JVM 单元测试（codec 等不依赖 Minecraft 的代码）
+    testImplementation(kotlin("test"))
+    testImplementation(libs.junit.jupiter)
+}
+
+tasks.withType<Test>().configureEach {
+    useJUnitPlatform()
 }

@@ -8,9 +8,9 @@ on:
         type: boolean
         default: true
       publish_curseforge:
-        description: Publish to CurseForge
+        description: Publish to CurseForge (keep false until curseforgeId is set)
         type: boolean
-        default: true
+        default: false
       publish_modrinth:
         description: Publish to Modrinth
         type: boolean

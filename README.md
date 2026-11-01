@@ -65,3 +65,14 @@ The mod is primarily authored in Chinese; some content (book tutorial texts, dem
 ## 相关文档 / Docs
 
 - [SPELLPLAYS.md](SPELLPLAYS.md)：施法演示配置格式 / demo config format
+
+## 安全说明 / Security notes
+
+手册内施法演示会在服务端**真实执行**图案（可能改世界），但使用虚拟媒质池，不会扣背包媒质、也不会因演示过载扣血。C2S 包有速率限制与 iota 类型/NBT 体积白名单（`SecurityGuards`），**不能**挡住「合法图案的任意组合」。请勿在无信任公开服依赖旧版本的演示安全。
+
+Book demos **really execute** patterns on the server (they may change the world) but use a virtual media pool (no inventory drain / overcast from demos). C2S packets are rate-limited with iota-type / NBT size guards (`SecurityGuards`); this does **not** stop arbitrary combinations of otherwise-legal patterns. Do not rely on older builds on untrusted public servers.
+
+Inline（Iota 内联渲染）为**可选**依赖：未安装时其余功能仍可加载，仅内联渲染不可用。
+
+Inline (iota inline rendering) is **optional**: without it the rest of the mod still loads; only inline rendering is disabled.
+

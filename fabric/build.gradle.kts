@@ -44,7 +44,7 @@ hexguideModDependencies {
     requires(curseforge = "hexcasting", modrinth = "hex-casting")
     requires("fabric-api")
     requires("fabric-language-kotlin")
-    requires("inline")
+    optional("inline")
     optional("modmenu")
 }
 

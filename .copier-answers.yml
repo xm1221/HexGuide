@@ -16,6 +16,6 @@ kotlin_package: cn.xm1221.HexGuide
 mappings_name: Mojmap
 minecraft_version_in_mod_version: false
 mit_license: true
-mod_version: 0.0,1
+mod_version: 0.0.2
 modid: hexguide
 sources_url: https://github.com/xm1221/HexGuide

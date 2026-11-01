@@ -105,7 +105,7 @@ publishMods {
         accessToken = System.getenv("CURSEFORGE_TOKEN") ?: ""
         projectId = curseforgeId
         minecraftVersions.add(minecraftVersion)
-        // TODO: update if your mod is only client-side or server-side!
+        // HexGuide is dual-sided (notes, demos, tag fix); keep both required.
         clientRequired = true
         serverRequired = true
     }

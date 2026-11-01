@@ -19,6 +19,10 @@ object ClientNotes {
     var currentSection: Int = 0
         private set
 
+    /** 当前节内的页码偏移（NotePage 组件内翻页；切换节时归零） */
+    var pageIndex: Int = 0
+        private set
+
     /** 服务端全量下发 → 替换本地缓存 */
     fun applySync(uuid: UUID, sections: List<List<CompoundTag>>) {
         loadedUuid = uuid
@@ -27,6 +31,7 @@ object ClientNotes {
         }.toMutableList()
         if (currentSection >= mySections.size) currentSection = (mySections.size - 1).coerceAtLeast(0)
         if (currentSection < 0) currentSection = 0
+        clampPage()
     }
 
     /** 所有节（只读） */
@@ -42,7 +47,27 @@ object ClientNotes {
     /** 当前节第 index 个 NoteIota（越界 null） */
     fun page(index: Int): NoteIota? = current().getOrNull(index)
 
+    /** 当前节页数 */
+    fun pageCount(): Int = current().size
+
+    /** 当前节内当前页（NotePage 使用） */
+    fun currentPage(): NoteIota? = current().getOrNull(pageIndex)
+
+    /** 节内翻页（自动夹紧到 [0, pageCount-1]） */
+    fun setPage(index: Int) {
+        pageIndex = index
+        clampPage()
+    }
+
+    private fun clampPage() {
+        val last = (current().size - 1).coerceAtLeast(0)
+        if (pageIndex > last) pageIndex = last
+        if (pageIndex < 0) pageIndex = 0
+    }
+
     fun setCurrent(index: Int) {
         currentSection = index.coerceIn(0, (mySections.size - 1).coerceAtLeast(0))
+        pageIndex = 0 // 换节后从第一页看起
+        clampPage()
     }
 }

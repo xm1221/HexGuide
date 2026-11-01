@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## 0.0.2
 
+### Added
+
+- **Demo step controls** (spellcasting demo page): a **Step** button advances exactly one step (pausing first if it was playing), a `current/total` step counter shows in the page corner, and a failed step now freezes the demo with the pattern left red until you press Play / Step / Restart. All button labels go through lang keys (`hexguide.demo.button.*`).
+- **Scrollable note index** (`hexguide:notes_index`): mouse wheel scrolls the section list with an `x-y / total` range indicator and ▲▼ buttons; rows are now click targets that open the correct **absolute** section. The wheel is only consumed by the page, so normal book paging still works elsewhere.
+- **Single-page note viewer** (`hexguide:notes`): the entry JSON no longer contains 256 blank pages — one `hexguide:note_page` now pages through the section in-place (◀ ▶ buttons or the mouse wheel), showing `page x / n · author`. Empty / out-of-range / not-yet-synced sections show friendly messages instead of a blank page.
+- **Note → spellplay drafts**: the `demo` pattern accepts a list whose first element may be a note iota (its title becomes the demo title/filename) and prints a click-to-copy path hint; new `/hexguide demoexport <index>` extracts recognizable `iota:` / `pattern{...}` references from a note section into a demo draft (unparseable references are skipped and counted). Drafts go to `<gameDir>/hexguide/spellplays/`.
+- **Clipboard note sharing**: `/hexguide export <index> clipboard` encodes a section as a compact `HG1:` string (JSON → DEFLATE → Ascii85) and copies it to your clipboard; `/hexguide import clipboard <string>` validates it server-side and adds it as a new section. Hard limits: 8 KiB string, 128 KiB inflated, 64 pages, 64/2048 chars title/body, 10 attempts per minute — all enforced on the server.
+- Pure-JVM `NoteShareCodec` unit tests (round-trip, bad prefix, over-length, decompression bomb, Ascii85 edge cases) under `common/src/test/kotlin/`.
+
 ### Changed
 
 - Hex Casting dependency bumped to **0.11.4**.
@@ -17,6 +26,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Per-player note library caps (sections / iotas per section), so a client cannot grow the server save without bound.
 - CurseForge publish workflow default is **off** until `curseforgeId` is filled.
 - English lang keys aligned with Chinese where missing; empty/`TODO: fill` English strings filled with usable placeholders (layout unchanged).
+- Note command feedback (export/import/authority/share) moved from hardcoded Chinese strings to lang keys (`hexguide.cmd.*`), so both locales are complete.
 
 ### Fixed
 

@@ -20,6 +20,33 @@
       saved: "已保存为 %s（点击复制）",
     },
 
+    cmd: {
+      no_authority: "你没有使用笔记指令的权限（由管理员用 /hexguide authority 配置）",
+      bad_index: "索引越界：你只有 %s 节笔记（0..%s）",
+      exported: "已导出第 %s 节（%s 页）为 %s（hexguide/notes/ 目录）",
+      export_failed: "导出失败：%s",
+      imported: "已导入 %s 页笔记（来自 %s）",
+      file_missing: "找不到文件 %s",
+      file_bad: "文件格式错误或没有页面：%s",
+      authority: "已设置 %s 的笔记指令权限：%s（默认开）",
+      share: {
+        copied: "笔记分享串已复制到剪贴板：%s",
+        exported: "已生成 %s 页的分享串（%s 字符），已复制到剪贴板",
+        imported: "已从分享串导入 %s 页笔记",
+        too_large: "这一节太长，分享串会超过 %s 字符；请分节后再分享",
+        too_long: "分享串超过 %s 字符上限",
+        too_many_pages: "分享串页数超过上限（%s 页）",
+        title_too_long: "分享串中有标题超过 %s 字符",
+        body_too_long: "分享串中有正文超过 %s 字符",
+        rate_limited: "操作太频繁，请稍后再试",
+        bad_prefix: "不是有效的笔记分享串（应以 HG1: 开头）",
+        corrupt: "分享串已损坏或内容不完整",
+        empty: "分享串里没有笔记页",
+        demoexport_nothing: "这一节里没有能识别的图案或 iota 引用（跳过 %s 处）",
+        demoexport_failed: "生成演示草稿失败，详见日志",
+        demoexport_ok: "已从笔记抽取出 %s 个步骤，生成演示草稿 %s.json（跳过 %s 处无法解析的引用）",
+      },
+    },
 
     notes: {
       unnamed: "未命名笔记",
@@ -62,6 +89,8 @@
       },
       step_counter: "%s/%s",
       step_failed: "本步失败",
+      saved: "已生成演示草稿 %s.json（点击复制引用）",
+      saved_hint: "位置：游戏目录 hexguide/spellplays/%s.json，拷进数据包 data/<命名空间>/spellplays/ 后可在手册演示页播放",
       logics: {
         "0": "射线追踪获取坐标",
         "1": "复制用于比对",

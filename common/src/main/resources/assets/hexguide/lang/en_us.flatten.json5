@@ -16,6 +16,33 @@
       hover: "Click to copy",
       saved: "Saved as %s (click to copy)"
     },
+    cmd: {
+      no_authority: "You are not allowed to use the note commands (an admin can change this with /hexguide authority).",
+      bad_index: "Index out of range: you have %s section(s) (0..%s).",
+      exported: "Exported section %s (%s page(s)) to %s (hexguide/notes/).",
+      export_failed: "Export failed: %s",
+      imported: "Imported %s page(s) of notes from %s.",
+      file_missing: "File not found: %s",
+      file_bad: "The file is malformed or has no pages: %s",
+      authority: "Set note-command permission for %s: %s (enabled by default).",
+      share: {
+        copied: "Note share string copied to your clipboard: %s",
+        exported: "Generated a share string for %s page(s) (%s characters) and copied it to your clipboard.",
+        imported: "Imported %s page(s) of notes from the share string.",
+        too_large: "This section is too large: the share string would exceed %s characters. Share it in smaller sections.",
+        too_long: "The share string exceeds the %s-character limit.",
+        too_many_pages: "The share string has too many pages (limit %s).",
+        title_too_long: "A title in the share string exceeds %s characters.",
+        body_too_long: "A page body in the share string exceeds %s characters.",
+        rate_limited: "Too many attempts, please wait a moment.",
+        bad_prefix: "That is not a note share string (it should start with HG1:).",
+        corrupt: "The share string is corrupted or incomplete.",
+        empty: "The share string contains no note pages.",
+        demoexport_nothing: "No patterns or iota references could be recognized in this section (%s skipped).",
+        demoexport_failed: "Failed to generate the demo draft; see the log for details.",
+        demoexport_ok: "Extracted %s step(s) from the notes into demo draft %s.json (%s reference(s) skipped)."
+      }
+    },
     notes: {
       unnamed: "Untitled Note",
       new: "+ New",
@@ -56,6 +83,8 @@
       },
       step_counter: "%s/%s",
       step_failed: "Step failed",
+      saved: "Demo draft %s.json created (click to copy the reference)",
+      saved_hint: "Location: hexguide/spellplays/%s.json in the game directory. Copy it into a datapack at data/<namespace>/spellplays/ to play it from the book.",
       logics: {
         "0": "Raycast to get coordinates",
         "1": "Duplicate for comparison",

@@ -29,7 +29,13 @@
       prev_page: "<",
       next_page: ">",
       page_indicator: "Page %s / %s",
-      editor_title: "Note Editor"
+      editor_title: "Note Editor",
+      empty: "No notes yet",
+      empty_section: "This section is empty",
+      not_synced: "Notes not synced yet, please wait",
+      count: "%s sections",
+      range: "%s-%s / %s",
+      page_of: "Page %s / %s · %s"
     },
     categories: {
       guide: "Hex Guide",
@@ -42,6 +48,14 @@
       spells: "Common Spell Examples"
     },
     demo: {
+      button: {
+        play: "Play",
+        pause: "Pause",
+        step: "Step",
+        restart: "Restart"
+      },
+      step_counter: "%s/%s",
+      step_failed: "Step failed",
       logics: {
         "0": "Raycast to get coordinates",
         "1": "Duplicate for comparison",

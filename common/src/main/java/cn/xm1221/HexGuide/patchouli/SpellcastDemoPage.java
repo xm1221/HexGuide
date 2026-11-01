@@ -107,10 +107,14 @@ public class SpellcastDemoPage extends BookPage {
     /** 最近加入的图案下标（用于执行结果 ERRORED 时染红） */
     transient int lastPatternIdx = -1;
     transient boolean lastStepCustomColor;
+    /** 当前步执行失败（ERRORED）：图案保持红色并冻结播放，直到玩家点 Play/Step/Restart */
+    transient boolean errored;
 
     private static final int BTN_Y = 138, BTN_H = 14;
-    private static final int PLAY_X = 4, PLAY_W = 52;
-    private static final int RESTART_X = 60, RESTART_W = 52;
+    // 三个按钮（播放/暂停、单步、重播）：2 + 36 + 2 + 36 + 2 + 36 = 114 < PAGE_WIDTH(116)
+    private static final int PLAY_X = 2, PLAY_W = 36;
+    private static final int STEP_X = 40, STEP_W = 36;
+    private static final int RESTART_X = 78, RESTART_W = 36;
     private static final int CANVAS_X = 0, CANVAS_Y = 22;
     private static final int CANVAS_W = GuiBook.PAGE_WIDTH;
     private static final int CANVAS_H = BTN_Y - CANVAS_Y - 10;
@@ -153,10 +157,12 @@ public class SpellcastDemoPage extends BookPage {
             playing = true;
         }
         this.playButton = new SpellcastingButtonWidget(PLAY_X, GuiBook.TOP_PADDING + BTN_Y, PLAY_W, BTN_H,
-            playing ? "Pause" : "Play", this::togglePlay);
+            playLabel(), this::togglePlay);
         parent.addWidget(this.playButton, pageNum);
+        parent.addWidget(new SpellcastingButtonWidget(STEP_X, GuiBook.TOP_PADDING + BTN_Y, STEP_W, BTN_H,
+            I18n.get("hexguide.demo.button.step"), this::stepOnce), pageNum);
         parent.addWidget(new SpellcastingButtonWidget(RESTART_X, GuiBook.TOP_PADDING + BTN_Y, RESTART_W, BTN_H,
-            "Restart", this::restart), pageNum);
+            I18n.get("hexguide.demo.button.restart"), this::restart), pageNum);
     }
 
     @Override
@@ -194,6 +200,7 @@ public class SpellcastDemoPage extends BookPage {
             steps = parseSteps(json);
             nextStep = 0;
             animTicks = 0;
+            errored = false;
             // 应用全局转义颜色 + 重置执行状态
             BookSpellcastingAccess access = as(spellcasting);
             access.setDemoEscapedColor$hexguide(escapedColor);
@@ -475,8 +482,39 @@ public class SpellcastDemoPage extends BookPage {
     // ─── 按钮 ────────────────────────────────────────────────
 
     private void togglePlay() {
+        // 已播完：按 Play 即从头重播
+        if (!playing && !steps.isEmpty() && nextStep >= steps.size()) {
+            restart();
+            return;
+        }
         playing = !playing;
-        if (playButton != null) playButton.setLabel(playing ? "Pause" : "Play");
+        // 从「失败冻结」恢复播放：清掉冻结标记（红图案保留，方便对照）
+        if (playing) errored = false;
+        refreshPlayButton();
+    }
+
+    /** Play/Pause 按钮文字随状态切换（lang 键 hexguide.demo.button.*） */
+    private void refreshPlayButton() {
+        if (playButton != null) playButton.setLabel(playLabel());
+    }
+
+    private String playLabel() {
+        return I18n.get("hexguide.demo.button." + (playing ? "pause" : "play"));
+    }
+
+    /**
+     * 单步：暂停时点一下只推进 1 步；播放中点则先暂停再进一步。
+     * 直接执行下一步（不等待 interval），之后保持暂停，方便逐步复盘。
+     */
+    private void stepOnce() {
+        if (steps.isEmpty() || spellcasting == null) return;
+        if (nextStep >= steps.size()) return; // 已播完：Step 不再推进
+        playing = false;
+        errored = false; // 继续单步 = 离开失败冻结状态
+        refreshPlayButton();
+        executeCurrentStep();
+        animTicks = 0;
+        currentWait = 0;
     }
 
     private void restart() {
@@ -488,8 +526,10 @@ public class SpellcastDemoPage extends BookPage {
         }
         nextStep = 0;
         animTicks = 0;
+        currentWait = 0;
+        errored = false;
         playing = true;
-        if (playButton != null) playButton.setLabel("Pause");
+        refreshPlayButton();
     }
 
     // ─── 播放 ────────────────────────────────────────────────
@@ -500,8 +540,12 @@ public class SpellcastDemoPage extends BookPage {
         // 先播放再等待：等待期过后立即执行当前步，执行后按该步 interval 等待
         animTicks += pticks;
         if (animTicks < currentWait) return;
-        animTicks = 0;
+        executeCurrentStep();
+    }
 
+    /** 执行 nextStep 指向的步骤（播放与单步共用），然后按该步 interval 等待 */
+    private void executeCurrentStep() {
+        if (spellcasting == null || nextStep >= steps.size()) return;
         Step step = steps.get(nextStep);
         BookSpellcastingAccess access = as(spellcasting);
         // 每一步之前默认清空画布（网格；栈保留）
@@ -516,6 +560,7 @@ public class SpellcastDemoPage extends BookPage {
         }
         currentWait = Math.max(1, step.interval);
         nextStep++;
+        animTicks = 0;
     }
 
     /** peek：可选先绘制图案（配置了 pattern/action 则画，表示取走操作），再移除本地栈指定位置的 iota（栈顶为下标 0），越界忽略 */
@@ -647,6 +692,10 @@ public class SpellcastDemoPage extends BookPage {
             if (!lastStepCustomColor && lastPatternIdx >= 0) {
                 access.demoColor$hexguide(lastPatternIdx, COLOR_ERRORED);
             }
+            // 失败步：红色图案保持显示，并冻结在此步（取消挂起的执行结果不会到来，播放循环也停）
+            errored = true;
+            playing = false;
+            refreshPlayButton();
             playSound(HexSounds.CAST_FAILURE);
         } else if ("ESCAPED".equals(resolutionType)) {
             // 转义（考察/内省）：图案标转义色（escaped_color，可配置）
@@ -654,9 +703,29 @@ public class SpellcastDemoPage extends BookPage {
                 access.demoColor$hexguide(lastPatternIdx, escapedColor);
             }
             playSound(HexSounds.CAST_NORMAL);
+            playSound(HexSounds.CAST_SPELL);
         } else {
             playSound(HexSounds.CAST_SPELL);
         }
+        // 失败冻结只需在失败时设置；成功步不清除（用户点 Play/Step 时才解除），
+        // 避免失败后紧跟的下一次回包把冻结/红字提前清掉。
+    }
+
+    /**
+     * 步骤进度：右上角显示 `当前步/总步数`（如 3/12）。
+     * 当前步 = 已执行的步数（nextStep），播放中显示正在等待的下一步，暂停时即最后执行的步。
+     */
+    private int renderStepCounter(GuiGraphics g, net.minecraft.client.gui.Font font) {
+        if (steps.isEmpty()) return 0;
+        int shown = Math.min(nextStep, steps.size());
+        String counter = I18n.get("hexguide.demo.step_counter", shown, steps.size());
+        int w = font.width(counter);
+        g.drawString(font, counter, CANVAS_W - w - 2, 2, book.textColor, false);
+        if (errored) {
+            String fail = I18n.get("hexguide.demo.step_failed");
+            g.drawString(font, fail, CANVAS_W - font.width(fail) - 2, 11, COLOR_ERRORED, false);
+        }
+        return w;
     }
 
     // ─── 渲染 ────────────────────────────────────────────────
@@ -684,10 +753,16 @@ public class SpellcastDemoPage extends BookPage {
         advance(pticks);
 
         var font = Minecraft.getInstance().font;
+        // 步骤进度（右上角，如 3/12）；先算出来，标题在剩余宽度里居中，避免互相压字
+        int counterW = renderStepCounter(graphics, font);
         // 动态标题（手动居中；drawString 默认带阴影，需显式 false）：图案维持显示时显示步骤标题，未播放显示大标题
         String title = currentTitle();
         if (!title.isEmpty()) {
-            graphics.drawString(font, title, CANVAS_W / 2 - font.width(title) / 2, 2, book.textColor, false);
+            int avail = CANVAS_W - counterW - 6;
+            if (font.width(title) > avail) {
+                title = font.plainSubstrByWidth(title, Math.max(0, avail - font.width("…"))) + "…";
+            }
+            graphics.drawString(font, title, (CANVAS_W - counterW) / 2 - font.width(title) / 2, 2, book.textColor, false);
         }
 
         var pose = graphics.pose();
